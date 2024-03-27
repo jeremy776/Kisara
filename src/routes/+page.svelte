@@ -57,6 +57,10 @@
 	});
 </script>
 
+<svelte:head>
+	<title>Kisara - Dapatkan pesan rahasia dari teman mu</title>
+</svelte:head>
+
 <div class="hero min-h-screen bg-base-200">
 	<div class="hero-content flex-col lg:flex-row-reverse sm:max-w-md lg:max-w-3xl lg:gap-10">
 		<div class="text-center lg:text-left">

@@ -118,6 +118,10 @@
 	}
 </script>
 
+<svelte:head>
+	<title>{author} - Dapatkan pesan rahasia dari teman mu</title>
+</svelte:head>
+
 <div class="flex items-center flex-col gap-3 justify-center min-h-full">
 	<div class="bg-base-100 w-full p-6 shadow-sm rounded-lg">
 		{#if isOwner}
