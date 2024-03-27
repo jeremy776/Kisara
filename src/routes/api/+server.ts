@@ -1,14 +1,11 @@
-import { error } from '@sveltejs/kit';
+import { error, json } from '@sveltejs/kit';
 /** @type {import('./$types').RequestHandler} */
-export function GET({ url }: {
-    url: URL;
-}) {
-	const min = Number(url.searchParams.get('min') ?? '0');
-	const max = Number(url.searchParams.get('max') ?? '1');
-	const d = max - min;
-	if (isNaN(d) || d < 0) {
-		error(400, 'min and max must be numbers, and min must be less than max');
-	}
-	const random = min + Math.random() * d;
-	return new Response(String(random));
+export async function GET() {
+	// get all comments
+	let comments = await prisma.comment.findMany() as any;
+	comments = comments.length;
+	// get all user
+	let users = await prisma.user.findMany() as any;
+	users = users.length;
+	return json({ message: 'success', status: 200, data: { comments, users } });
 }
