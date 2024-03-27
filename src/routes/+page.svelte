@@ -13,6 +13,7 @@
 		}).then((res) => {
 			if (res.ok) {
 				res.json().then((data) => {
+					console.log(data)
 					if (data.status === 200) {
 						window.location.href = '/' + data.id;
 					}
@@ -55,7 +56,14 @@
 			});
 		}
 	});
+
+/** @type {import('./$types').PageData} */
+export let data;
 </script>
+
+<svelte:head>
+	<title>Kisara - Dapatkan pesan rahasia dari teman mu</title>
+</svelte:head>
 
 <div class="hero min-h-screen bg-base-200">
 	<div class="hero-content flex-col lg:flex-row-reverse sm:max-w-md lg:max-w-3xl lg:gap-10">
@@ -119,7 +127,7 @@
 					>
 				</div>
 				<div class="stat-title">Pengguna baru</div>
-				<div class="stat-value">2</div>
+				<div class="stat-value">{data.total_user || 'Belum ada cok'}</div>
 			</div>
 
 			<div class="stat">
@@ -138,7 +146,7 @@
 					>
 				</div>
 				<div class="stat-title">Pesan terkirim</div>
-				<div class="stat-value">4,200</div>
+				<div class="stat-value">{data.total_comment || 'kosong'}</div>
 			</div>
 
 			<div class="stat">
@@ -157,7 +165,7 @@
 					>
 				</div>
 				<div class="stat-title">Total kunjungan</div>
-				<div class="stat-value">1,200</div>
+				<div class="stat-value">entah</div>
 			</div>
 		</div>
 	</div>

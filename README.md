@@ -26,13 +26,13 @@ To run this project, you will need to add the following environment variables to
 Clone the project
 
 ```bash
-  git clone https://link-to-project
+  git clone https://github.com/jeremy776/Kisara.git
 ```
 
 Go to the project directory
 
 ```bash
-  cd my-project
+  cd kisara
 ```
 
 Install dependencies
