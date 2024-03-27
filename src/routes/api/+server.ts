@@ -1,4 +1,6 @@
 import { error, json } from '@sveltejs/kit';
+import { prisma } from '$lib/server/prisma.js';
+
 /** @type {import('./$types').RequestHandler} */
 export async function GET() {
 	// get all comments

@@ -1,5 +1,4 @@
 
-
 /** @type {import('./$types').PageLoad} */
 export async function load(a) {
 	let bb= new URL(a.url);
