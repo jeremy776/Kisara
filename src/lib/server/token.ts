@@ -1,7 +1,4 @@
-/** @type {import('@sveltejs/adapter-vercel').Config} */
-export const config = {
-	runtime: 'edge'
-};
+/** @type {import('@sveltejs/adapter-vercel').Config} */export const config = {	runtime: 'nodejs18.x'};
 
 import { JWT_SECRET_KEY } from "$env/static/private"
 import { SignJWT, jwtVerify } from "jose";
