@@ -1,10 +1,10 @@
-import { JWT_SECRET_KEY } from "$env/static/private"
-import { SignJWT, jwtVerify } from "jose";
-
 /** @type {import('@sveltejs/adapter-vercel').Config} */
 export const config = {
 	runtime: 'edge'
 };
+
+import { JWT_SECRET_KEY } from "$env/static/private"
+import { SignJWT, jwtVerify } from "jose";
 
 export const jwt_sign = async(payload: {
     sub: string;
