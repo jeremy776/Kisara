@@ -19,7 +19,8 @@ export async function GET(p) {
             }
         }
     });
-    if(!user) return json({ message: 'User not found' }, { status: 401 });
+    console.log(user)
+    if(!user) return json({ message: 'User not found' }, { status: 404 });
     return json({ message: 'success', status: 200, comments: user?.comments, author: user.username });
 }
 

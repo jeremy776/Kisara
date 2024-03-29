@@ -55,6 +55,8 @@
 						message = data.comments.reverse();
 					}
 				});
+			} else {
+				return window.location.href = '/404'
 			}
 		});
 	});
