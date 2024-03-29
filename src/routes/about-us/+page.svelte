@@ -31,8 +31,7 @@
 				adanya cela tersebut kami ingin membuat website yang lebih aman dan lebih baik.
 			</p>
 			<p class="text-gray-400 mt-4">
-				Kirasa dibuat oleh 3 orang (2 orang afk) dan 1 orang yang menjadi fullstack developer dalam
-				project ini.
+				Kirasa dibuat oleh 3 orang (1 orang afk) dan 2 orang (1 Backend, 1 Frontend)
 			</p>
 		</div>
 	</div>
