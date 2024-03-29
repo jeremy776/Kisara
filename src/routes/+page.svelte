@@ -24,40 +24,6 @@
 		});
 	}
 
-	import { onMount } from 'svelte';
-	let cookies = {};
-	onMount(() => {
-		
-			let a= document.cookie.split(';').reduce((cookies, cookie) => {
-				const [name, value] = cookie.split('=').map((c) => c.trim());
-				// @ts-ignore
-				cookies[name] = value;
-				return cookies;
-			}, {});
-
-			// get header
-			cookies = a;
-		
-		// @ts-ignore
-		if (cookies['loggedin']) {
-			fetch('/api/auth/verify', {
-				headers: {
-					// @ts-ignore
-					Authorization: `Bearer ${cookies['token']}`
-				}
-			}).then((res) => {
-				// console.log(res);
-				if (res.ok) {
-					res.json().then((data) => {
-						if(data.status === 200) window.location.href = '/' + data.user.link_id;
-					});
-				} else {
-					console.error(res);
-				}
-			});
-		}
-	});
-
 /** @type {import('./$types').PageData} */
 export let data;
 </script>

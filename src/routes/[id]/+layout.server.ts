@@ -22,7 +22,7 @@ export async function load({ cookies, url }) {
 	const getMessages = await fetch(`${url.origin}/api/message/${url.pathname.split('/')[1]}`);
 	const messages = await getMessages.json();
 	if (!messages.status) {
-		throw redirect(308, '/404');
+		throw redirect(307, '/404');
 	}
 	if (messages.status === 200) {
 		obj_return.author = messages.author;

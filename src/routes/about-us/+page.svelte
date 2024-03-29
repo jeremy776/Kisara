@@ -1,3 +1,7 @@
+<svelte:head>
+	<title>About Us - Kisara - Dapatkan pesan rahasia dari teman mu</title>
+</svelte:head>
+
 <div class="navbar bg-base-100">
 	<div class="flex-1">
 		<a class="btn btn-ghost text-xl" href="/">Kisara</a>
