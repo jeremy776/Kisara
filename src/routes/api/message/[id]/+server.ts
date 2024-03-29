@@ -19,7 +19,7 @@ export async function GET(p) {
             }
         }
     });
-    console.log(user)
+    // console.log(user)
     if(!user) return json({ message: 'User not found' }, { status: 404 });
     return json({ message: 'success', status: 200, comments: user?.comments, author: user.username });
 }

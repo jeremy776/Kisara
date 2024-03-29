@@ -1,11 +1,18 @@
 /** @type {import('./$types').PageLoad} */
-export function load(a) {
-	console.log(a)
+export async function load({parent, params, url}) {
+	const p = await parent();
+
+	if(p.user && params.id === p.user.link_id) {
+		p.is_owner = true;
+	}
 	return {
 		status: 200,
 		data: {
-			id: a.params.id,
-			url: a.url.href,
+			id: params.id,
+			isOwner: p.is_owner,
+			url: url.href,
+			author: p.author,
+			messages: p.messages
 		},
 	};
 }

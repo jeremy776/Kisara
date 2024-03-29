@@ -1,65 +1,16 @@
 <script>
+
 	/** @type {import('./$types').PageData} */
 	export let data;
 
-	import { onMount } from 'svelte';
-
 	let cookies = {};
-	let author = '{data.author.nama}';
-	let isOwner = false;
-	onMount(() => {
-		const parseCookies = () => {
-			return document.cookie.split(';').reduce((cookies, cookie) => {
-				const [name, value] = cookie.split('=').map((c) => c.trim());
-				// @ts-ignore
-				cookies[name] = value;
-				return cookies;
-			}, {});
-		};
-		cookies = parseCookies();
-		// @ts-ignore
-		if (cookies['loggedin'] === 'true') {
-			fetch('/api/auth/verify', {
-				headers: {
-					// @ts-ignore
-					Authorization: `Bearer ${cookies['token']}`
-				}
-			}).then((res) => {
-				if (res.ok) {
-					res.json().then((datas) => {
-						if (datas.status === 200) {
-							isOwner = datas.user.link_id === data.data.id;
-						}
-					});
-				}
-			});
-		}
-	});
+	let author = data.data.author;
+	let isOwner = data.data.isOwner;
 
 	/**
 	 * @type {any[]}
 	 */
-	let message = [];
-	onMount(() => {
-		fetch(`/api/message/${data.data.id}`, {
-			headers: {
-				'Content-Type': 'application/json'
-			},
-
-			method: 'GET'
-		}).then((res) => {
-			if (res.ok) {
-				res.json().then((data) => {
-					if (data.status === 200) {
-						author = data.author;
-						message = data.comments.reverse();
-					}
-				});
-			} else {
-				return window.location.href = '/404'
-			}
-		});
-	});
+	let message = data.data.messages;
 
 	/** @param {{ currentTarget: EventTarget & HTMLFormElement}} event */
 	async function handleKirim(event) {
@@ -126,7 +77,7 @@
 
 <div class="navbar bg-base-100">
 	<div class="flex-1">
-		<a class="btn btn-ghost text-xl" href='/'>Kisara</a>
+		<a class="btn btn-ghost text-xl" href="/">Kisara</a>
 	</div>
 	<div class="flex-none">
 		<ul class="menu menu-horizontal px-1">
