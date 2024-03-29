@@ -8,7 +8,7 @@ export default {
 		extend: {}
 	},
   daisyui: {
-    themes: ["wireframe"],
+    themes: ["halloween"],
   },
 	plugins: [require('flowbite/plugin'), require('daisyui')]
 };
