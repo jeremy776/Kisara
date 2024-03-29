@@ -76,7 +76,7 @@ export async function POST({ request, cookies }) {
 			httpOnly: false
 		});
 
-		return json({ message: 'Logged in', status: 200, token, id: link_id() });
+		return json({ message: 'Logged in', status: 200, token, id: user.link_id });
 	} catch (error: any) {
 		return json({ error: error.message }, { status: 500 });
 	}

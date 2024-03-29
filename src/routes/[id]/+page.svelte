@@ -122,8 +122,19 @@
 	<title>{author} - Dapatkan pesan rahasia dari teman mu</title>
 </svelte:head>
 
+<div class="navbar bg-base-100">
+	<div class="flex-1">
+		<a class="btn btn-ghost text-xl" href='/'>Kisara</a>
+	</div>
+	<div class="flex-none">
+		<ul class="menu menu-horizontal px-1">
+			<li></li>
+		</ul>
+	</div>
+</div>
+
 <div class="flex items-center flex-col gap-3 justify-center min-h-full">
-	<div class="bg-base-100 w-full p-6 shadow-sm rounded-lg">
+	<div class="bg-base-100 w-full p-6 shadow-sm rounded-b-2xl">
 		{#if isOwner}
 			<div class="w-fulll bg-base-200 px-4 py-2 text-center">
 				<p>Daftar Pesan kamu</p>
@@ -132,10 +143,17 @@
 			<div class="text-lg mt-5 text-center">
 				<p>Bagiin link kamu ke media sosial yuk</p>
 
-				<div></div>
+				<div>
+					<input
+						type="text"
+						value={data.data.url}
+						class="input input-bordered w-full mt-2"
+						disabled
+					/>
+				</div>
 			</div>
 		{:else}
-			<div class="w-full bg-base-200 px-4 py-6">
+			<div class="w-full bg-base-200 rounded-3xl px-4 py-6">
 				<div class="space-y-">
 					<h2 class="font-semibold">Mau ngirim pesan apa nih ke {author}?</h2>
 					<p class="text-sm text-gray-400">

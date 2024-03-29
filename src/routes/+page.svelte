@@ -13,7 +13,7 @@
 		}).then((res) => {
 			if (res.ok) {
 				res.json().then((data) => {
-					console.log(data)
+					// console.log(data)
 					if (data.status === 200) {
 						window.location.href = '/' + data.id;
 					}

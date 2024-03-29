@@ -27,16 +27,15 @@
 		<slot />
 	</div>
 </div>
-<footer class="footer p-10 bg-neutral text-neutral-content">
+<footer class="footer p-10 border-t rounded-xl border-neutral-600 text-neutral-content">
     <nav>
       <h6 class="footer-title">Kisara</h6>
-       <a href="/" class="link link-hover">Tentang kami</a>
+       <a href="/about-us" class="link link-hover">Tentang kami</a>
 
     </nav>
     <nav>
       <h6 class="footer-title">Legal</h6> 
       <a href="/" class="link link-hover">Terms of use</a>
-      <a href="/" class="link link-hover">Privacy policy</a>
-      <a href="/" class="link link-hover">Cookie policy</a>
+      <a href="/privacy-policy" class="link link-hover">Privacy policy</a>
     </nav>
   </footer>
