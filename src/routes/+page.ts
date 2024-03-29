@@ -9,7 +9,8 @@ export async function load(a) {
 	let b = await c.json();
 	return {
 		status: 200,
-		total_user: b.data.users,
-		total_comment: b.data.comments
+
+		total_user: b.data.users|| 0,
+		total_comment: b.data.comments || 0
 	};
 }

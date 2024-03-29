@@ -19,7 +19,8 @@ export async function GET(p) {
             }
         }
     });
-    if(!user) return json({ message: 'User not found' }, { status: 401 });
+    // console.log(user)
+    if(!user) return json({ message: 'User not found' }, { status: 404 });
     return json({ message: 'success', status: 200, comments: user?.comments, author: user.username });
 }
 
@@ -32,7 +33,7 @@ export async function DELETE(p) {
     });
     if(!user) return json({ message: 'User not found' }, { status: 401 });
 
-    // get query
+    // * get query
     const query = new URL(p.url)
     const comment_id = query.searchParams.get('comment_id');
     if(!comment_id) return json({ message: 'Comment not found' }, { status: 401 });

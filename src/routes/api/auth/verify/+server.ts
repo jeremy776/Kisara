@@ -4,10 +4,13 @@ import { json } from '@sveltejs/kit';
 import { prisma } from '$lib/server/prisma.js';
 
 export async function GET({request, cookies}) {
-    const token = cookies.get('token');
-    if (!token) {
-        return json({ message: 'Not logged in' }, { status: 401 });
-    }
+    // const token = cookies.get('token');
+    // if (!token) {
+    //     return json({ message: 'Not logged in' }, { status: 401 });
+    // }
+
+    const token = request.headers.get('Authorization')?.replace('Bearer ', '');
+    if(!token) return json({ message: 'Not logged in' }, { status: 401 });
 
     const payload = await verifyJWT(token) as { sub: string };
     if(!payload) return json({ message: 'Invalid token' }, { status: 401 });

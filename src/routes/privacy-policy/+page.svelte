@@ -1,3 +1,7 @@
+<svelte:head>
+	<title>Privacy Policy - Kisara - Dapatkan pesan rahasia dari teman mu</title>
+</svelte:head>
+
 <div class="flex items-center justify-center w-full">
 	<div class="max-w-4xl p-5">
 		<h1 class="text-xl font-bold mt-5">Privacy Policy for Kisara</h1>
