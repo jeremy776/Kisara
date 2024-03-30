@@ -13,7 +13,6 @@ export async function handle({ event, resolve }) {
 		});
 		let verif = await verifOwners.json();
 		if (verif.status === 200 ) {
-			// console.log(verif.user)
 			throw redirect(307, `/${verif.user.link_id}`);
 		}
 	}
