@@ -145,7 +145,7 @@
 						{#if isOwner}
 							<div>
 								<button
-									class="btn btn-xs rounded-sm btn-error text-white"
+									class="btn btn-xs rounded-lg btn-error text-white"
 									on:click={() => {
 										const modal = document.getElementById(`my_modal_${index}`);
 										// @ts-ignore
