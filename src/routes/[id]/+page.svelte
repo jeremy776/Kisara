@@ -90,11 +90,11 @@
 	<div class="bg-base-100 w-full p-6 shadow-sm rounded-b-2xl">
 		{#if isOwner}
 			<div class="w-fulll bg-base-200 px-4 py-2 text-center">
-				<p>Daftar Pesan kamu</p>
+				<p class="text-xl">💬 Daftar Pesan kamu</p>
 			</div>
 
-			<div class="text-lg mt-5 text-center">
-				<p>Bagiin link kamu ke media sosial yuk</p>
+			<div class="text-lg mt-10 text-center">
+				<p class="text-md text-gray-500">Bagiin link kamu ke media sosial yuk</p>
 
 				<div>
 					<input
@@ -103,6 +103,7 @@
 						class="input input-bordered w-full mt-2"
 						disabled
 					/>
+					<button class="btn mt-5 btn-primary btn-block">📋 Salin link</button>
 				</div>
 			</div>
 		{:else}
@@ -128,8 +129,8 @@
 		{/if}
 	</div>
 	<div class="w-full p-6">
-		<h2 class="text-xl text-left">Timeline {author}</h2>
-		<div>
+		<h2 class="text-xl text-left">⏱️ Timeline {author}</h2>
+		<div class="mt-4">
 			{#if message.length === 0}
 				<p class="text-center text-gray-400 mt-5">Belum ada pesan nih</p>
 			{:else}
@@ -144,7 +145,7 @@
 						{#if isOwner}
 							<div>
 								<button
-									class="btn btn-xs btn-error text-white"
+									class="btn btn-xs rounded-sm btn-error text-white"
 									on:click={() => {
 										const modal = document.getElementById(`my_modal_${index}`);
 										// @ts-ignore
