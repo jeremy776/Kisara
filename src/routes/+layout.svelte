@@ -3,22 +3,13 @@
 	import '../app.css';
 </script>
 
-<div class="hidden navbar bg-base-100">
+<div class="navbar bg-base-100">
 	<div class="flex-1">
 		<a href="/" class="btn btn-ghost text-xl">KiSaRa</a>
 	</div>
 	<div class="flex-none">
 		<ul class="menu menu-horizontal px-1">
-			<li><div>link</div></li>
-			<li>
-				<details>
-					<summary><div>Parent</div> </summary>
-					<ul class="p-2 bg-base-100 rounded-t-none">
-						<li><div>Link 1</div></li>
-						<li><div>Link 1</div></li>
-					</ul>
-				</details>
-			</li>
+			<li><div>Beranda</div></li>
 		</ul>
 	</div>
 </div>
@@ -27,15 +18,14 @@
 		<slot />
 	</div>
 </div>
-<footer class="footer p-10 border-t rounded-xl border-neutral-600 text-neutral-content">
-    <nav>
-      <h6 class="footer-title">Kisara</h6>
-       <a href="/about-us" class="link link-hover">Tentang kami</a>
-
-    </nav>
-    <nav>
-      <h6 class="footer-title">Legal</h6> 
-      <a href="/" class="link link-hover">Terms of use</a>
-      <a href="/privacy-policy" class="link link-hover">Privacy policy</a>
-    </nav>
-  </footer>
+<footer class="footer p-10 rounded-t-3xl shadow text-neutral-content">
+	<nav>
+		<h6 class="footer-title">Kisara</h6>
+		<a href="/about-us" class="link link-hover">Tentang kami</a>
+	</nav>
+	<nav>
+		<h6 class="footer-title">Legal</h6>
+		<a href="/" class="link link-hover">Terms of use</a>
+		<a href="/privacy-policy" class="link link-hover">Privacy policy</a>
+	</nav>
+</footer>
