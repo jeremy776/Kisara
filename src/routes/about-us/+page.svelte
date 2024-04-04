@@ -2,17 +2,6 @@
 	<title>About Us - Kisara - Dapatkan pesan rahasia dari teman mu</title>
 </svelte:head>
 
-<div class="navbar bg-base-100">
-	<div class="flex-1">
-		<a class="btn btn-ghost text-xl" href="/">Kisara</a>
-	</div>
-	<div class="flex-none">
-		<ul class="menu menu-horizontal px-1">
-			<li><a href="/">Beranda</a></li>
-		</ul>
-	</div>
-</div>
-
 <div class="sm:flex items-center max-w-screen-xl">
 	<div class="sm:w-1/2 p-10">
 		<div class="image object-center text-center">

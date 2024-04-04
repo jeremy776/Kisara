@@ -1,4 +1,5 @@
 <script>
+	// import Countup from './Countup.svelte';
 	/** @param {{ currentTarget: EventTarget & HTMLFormElement}} event */
 	async function handleSubmit(event) {
 		const form = event.currentTarget;
@@ -24,59 +25,73 @@
 		});
 	}
 
-/** @type {import('./$types').PageData} */
-export let data;
+	/** @type {import('./$types').PageData} */
+	export let data;
 </script>
 
 <svelte:head>
 	<title>Kisara - Dapatkan pesan rahasia dari teman mu</title>
 </svelte:head>
 
-<div class="hero min-h-screen bg-base-200">
-	<div class="hero-content flex-col lg:flex-row-reverse sm:max-w-md lg:max-w-3xl lg:gap-10">
-		<div class="text-center lg:text-left">
+<div class="hero min-h-[90vh] bg-base-200">
+	<div
+		class="hero-content flex-col flex lg:flex-row-reverse lg:flex lg:justify-between sm:max-w-md lg:max-w-7xl lg:gap-10"
+	>
+		<div class="text-center lg:text-right max-w-xl w-full">
 			<h1 class="text-5xl font-bold">Kisara</h1>
 			<p class="py-6">
 				Kisara atau Kirim pesan rahasia adalah aplikasi yang memungkinkan teman dari pengguna untuk
 				mengirim pesan secara rahasia kepada pengguna.
 			</p>
 		</div>
-		<div class="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
-			<form method="POST" on:submit|preventDefault={handleSubmit} class="card-body">
-				<div class="form-control">
-					<label for="" class="label">
-						<span class="label-text">Nama</span>
-					</label>
-					<input
-						autocomplete="off"
-						name="name"
-						type="text"
-						placeholder="daftarkan nama"
-						class="input input-bordered"
-						required
-					/>
+		<div class="card shrink-0 w-full shadow max-w-sm bg-base-100">
+			{#if data.user}
+				<div class="stats stats-vertical">
+					<div class="stat">
+						<div class="stat-title">Total Komentar</div>
+						<div class="stat-value">
+							<!-- <Countup value={data.user.message} /> -->
+						</div>
+					</div>
+					<a href={`/${data.user.link_id}`} class="mt-4 btn btn-primary">Lihat link</a>
 				</div>
-				<div class="form-control">
-					<label for="" class="label">
-						<span class="label-text">Password</span>
-					</label>
-					<input
-						name="password"
-						type="password"
-						placeholder="password"
-						class="input input-bordered"
-						required
-					/>
-				</div>
-				<div class="form-control mt-6">
-					<button type="submit" class="btn btn-primary">Login</button>
-				</div>
-			</form>
+			{:else}
+				<form method="POST" on:submit|preventDefault={handleSubmit} class="card-body">
+					<div class="form-control">
+						<label for="" class="label">
+							<span class="label-text">Nama</span>
+						</label>
+						<input
+							autocomplete="off"
+							name="name"
+							type="text"
+							placeholder="daftarkan nama"
+							class="input input-bordered"
+							required
+						/>
+					</div>
+					<div class="form-control">
+						<label for="" class="label">
+							<span class="label-text">Password</span>
+						</label>
+						<input
+							name="password"
+							type="password"
+							placeholder="password"
+							class="input input-bordered"
+							required
+						/>
+					</div>
+					<div class="form-control mt-6">
+						<button type="submit" class="btn btn-primary">Login</button>
+					</div>
+				</form>
+			{/if}
 		</div>
 	</div>
 </div>
-<div class="flex items-center w-full justify-center">
-	<div class="w-full max-w-3xl p-9">
+<div class="flex items-center w-full justify-center mb-20">
+	<div class="w-full max-w-sm p-4 md:max-w-4xl">
 		<div class="flex flex-col md:flex-row w-full stats shadow">
 			<div class="stat">
 				<div class="stat-figure text-secondary">
@@ -94,7 +109,7 @@ export let data;
 					>
 				</div>
 				<div class="stat-title">Pengguna baru</div>
-				<div class="stat-value">{data.total_user || 'Belum ada cok'}</div>
+				<div class="stat-value">{data.total_user || '0'}</div>
 			</div>
 
 			<div class="stat">
@@ -113,7 +128,7 @@ export let data;
 					>
 				</div>
 				<div class="stat-title">Pesan terkirim</div>
-				<div class="stat-value">{data.total_comment || 'kosong'}</div>
+				<div class="stat-value">{data.total_comment || '0'}</div>
 			</div>
 
 			<div class="stat">
@@ -132,7 +147,7 @@ export let data;
 					>
 				</div>
 				<div class="stat-title">Total kunjungan</div>
-				<div class="stat-value">entah</div>
+				<div class="stat-value">0</div>
 			</div>
 		</div>
 	</div>

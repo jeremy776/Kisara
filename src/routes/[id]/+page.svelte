@@ -1,5 +1,4 @@
 <script>
-
 	/** @type {import('./$types').PageData} */
 	export let data;
 
@@ -11,6 +10,18 @@
 	 * @type {any[]}
 	 */
 	let message = data.data.messages;
+
+	function handleCopy() {
+		/**
+		 * @type {any}
+		 */
+		let input = document.getElementById('url');
+		input?.select();
+		input?.setSelectionRange(0, 99999);
+		navigator.clipboard.writeText(input?.value);
+
+		alert('Link berhasil di salin');
+	}
 
 	/** @param {{ currentTarget: EventTarget & HTMLFormElement}} event */
 	async function handleKirim(event) {
@@ -75,22 +86,11 @@
 	<title>{author} - Dapatkan pesan rahasia dari teman mu</title>
 </svelte:head>
 
-<div class="navbar bg-base-100">
-	<div class="flex-1">
-		<a class="btn btn-ghost text-xl" href="/">Kisara</a>
-	</div>
-	<div class="flex-none">
-		<ul class="menu menu-horizontal px-1">
-			<li></li>
-		</ul>
-	</div>
-</div>
-
 <div class="flex items-center flex-col gap-3 justify-center min-h-full">
 	<div class="bg-base-100 w-full p-6 shadow-sm rounded-b-2xl">
 		{#if isOwner}
 			<div class="w-fulll bg-base-200 px-4 py-2 text-center">
-				<p class="text-xl">💬 Daftar Pesan kamu</p>
+				<p class="text-xl aos-init">💬 Daftar Pesan kamu</p>
 			</div>
 
 			<div class="text-lg mt-10 text-center">
@@ -99,11 +99,12 @@
 				<div>
 					<input
 						type="text"
+						id="url"
 						value={data.data.url}
 						class="input input-bordered w-full mt-2"
 						disabled
 					/>
-					<button class="btn mt-5 btn-primary btn-block">📋 Salin link</button>
+					<button on:click={handleCopy} class="btn mt-5 btn-primary btn-block">📋 Salin link</button>
 				</div>
 			</div>
 		{:else}
@@ -136,7 +137,9 @@
 			{:else}
 				<p class="text-center text-gray-400">Ada {message.length} pesan nih</p>
 			{/if}
-			{#each message as msg, index}
+
+			<!-- {#each message as msg, index} -->
+			{#each message as msg (msg.id)}
 				<div class="bg-base-100 p-4 mt-4 rounded-lg">
 					<p class="text-sm">
 						{msg.content}
@@ -145,14 +148,14 @@
 						{#if isOwner}
 							<div>
 								<button
-									class="btn btn-xs rounded-sm btn-error text-white"
+									class="btn btn-xs rounded-lg btn-error text-white"
 									on:click={() => {
-										const modal = document.getElementById(`my_modal_${index}`);
+										const modal = document.getElementById(`my_modal_${msg.id}`);
 										// @ts-ignore
 										modal?.showModal();
 									}}>Hapus</button
 								>
-								<dialog id={`my_modal_${index}`} class="modal">
+								<dialog id={`my_modal_${msg.id}`} class="modal">
 									<div class="modal-box">
 										<h3 class="font-bold text-lg">Peringatan nih</h3>
 										<p class="pt-4">Yakin mau hapus pesan ini?</p>
