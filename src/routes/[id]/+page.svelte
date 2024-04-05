@@ -154,7 +154,7 @@
 
 	{#if early_access}
 		<!-- Announcement Banner -->
-		<div class="sticky top-3 max-w-[85rem] w-full px-4 mt-5 sm:px-6 lg:px-8 mx-auto">
+		<div class="z-[100000000000000] sticky top-3 max-w-[85rem] w-full px-4 mt-5 sm:px-6 lg:px-8 mx-auto">
 			<div
 				class="bg-blue-600 bg-[url('https://preline.co/assets/svg/examples/abstract-1.svg')] bg-no-repeat bg-cover bg-center p-4 rounded-lg text-center"
 			>
@@ -180,12 +180,15 @@
 
 					{#if early_access}
 						<div class="mt-2">
-							<div>
+							<div class="relative">
 								<input
 									type="text"
-									class="outline-none border border-gray-700 px-2.5 py-1.5 w-full rounded-lg bg-base-300 text-sm"
+									class="outline-none pr-16 border border-gray-700 px-2.5 py-1.5 w-full rounded-lg bg-base-300 text-sm"
 									placeholder="balas komentar"
 								/>
+								<div class="absolute flex items-center px-2 h-full top-0 right-0">
+									<button class="px-3 text-xs py-0.5 rounded-lg bg-blue-500">kirim</button>
+								</div>
 							</div>
 						</div>
 					{/if}
