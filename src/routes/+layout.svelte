@@ -43,9 +43,6 @@
 					<a class="inline-flex gap-x-2 text-gray-400 hover:text-gray-500" href="/">Changelog</a>
 				</p>
 				<p><a class="inline-flex gap-x-2 text-gray-400 hover:text-gray-500" href="/">Docs</a></p>
-				<p>
-					<a class="inline-flex gap-x-2 text-gray-400 hover:text-gray-500" href="/">Download</a>
-				</p>
 			</div>
 		</div>
 
