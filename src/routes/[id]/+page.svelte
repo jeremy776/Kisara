@@ -46,16 +46,6 @@
 		const form = event.currentTarget;
 		const formData = new FormData(form);
 		const datas = Object.fromEntries(formData.entries());
-		// let id = new Date().toISOString()
-		// message = [
-		// 	{
-		// 		id: id,
-		// 		content: datas.pesan,
-		// 		createdAt: new Date().toISOString()
-		// 	},
-		// 	...message
-		// ];
-		// form.reset();
 
 		fetch('/api/message', {
 			method: 'POST',
@@ -70,7 +60,6 @@
 			if (res.ok) {
 				res.json().then((data) => {
 					if (data.status === 200) {
-						// reset form
 						form.reset();
 						message = [data.data, ...message];
 					}

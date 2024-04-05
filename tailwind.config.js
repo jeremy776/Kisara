@@ -7,8 +7,8 @@ export default {
 	theme: {
 		extend: {}
 	},
-  daisyui: {
-    themes: ["business"],
-  },
-	plugins: [require('flowbite/plugin'), require('daisyui')]
+	daisyui: {
+		themes: ['business']
+	},
+	plugins: [require('@tailwindcss/typography'), require('flowbite/plugin'), require('daisyui')]
 };
