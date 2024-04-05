@@ -11,6 +11,7 @@
 	<div class="flex-none">
 		<ul class="menu menu-horizontal px-1">
 			<li><a href="/">Beranda</a></li>
+			<li><a href="/blog">Blog</a></li>
 			{#if data.user}
 				<li><a href={'/' + data.user.link_id}>Dashboard</a></li>
 				{#if data.user.role === 'admin'}
