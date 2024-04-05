@@ -7,7 +7,7 @@
 	<title>Changelog - Kisara</title>
 </svelte:head>
 
-<article class="p-4 lg:prose-xl prose">
+<article class="p-4 prose">
 	{@html snarkdown(update)}
 </article>
 
