@@ -1,5 +1,4 @@
 <script>
-
 	/** @type {import('./$types').PageData} */
 	export let data;
 
@@ -11,6 +10,11 @@
 	 * @type {any[]}
 	 */
 	let message = data.data.messages;
+	// add value 'first_message' to first message
+	if (message.length > 0) {
+		message[message.length - 1].first_message = true;
+	}
+	console.log(message);
 
 	function handleCopy() {
 		/**
@@ -79,7 +83,12 @@
 	 */
 	function timeToDate(time) {
 		const date = new Date(time);
-		return date.toLocaleDateString();
+		// change format to 03 March 2021
+		return date.toLocaleDateString('id-ID', {
+			year: 'numeric',
+			month: 'long',
+			day: 'numeric'
+		});
 	}
 </script>
 
@@ -140,10 +149,11 @@
 
 			<!-- {#each message as msg, index} -->
 			{#each message as msg (msg.id)}
-				<div class="bg-base-100 p-4 mt-4 rounded-lg">
+				<div class={'bg-base-100 p-4 mt-4 rounded-lg'}>
 					<p class="text-sm">
 						{msg.content}
 					</p>
+					<!-- <span class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-lg text-xs font-medium bg-blue-100 text-blue-800">Badge</span> -->
 					<div class="flex justify-between mt-4">
 						{#if isOwner}
 							<div>
@@ -178,9 +188,14 @@
 								</dialog>
 							</div>
 						{/if}
-						<p class="text-xs text-right text-gray-400">
+						<!-- <p class="text-xs text-right text-gray-400">
 							{timeToDate(msg.createdAt)}
-						</p>
+						</p> -->
+						<span
+							class="inline-flex items-center gap-x-1.5 py-0.5 px-3 rounded-full text-xs font-medium bg-gray-800 text-gray-400"
+						>
+							{timeToDate(msg.createdAt)}
+						</span>
 					</div>
 				</div>
 			{/each}
