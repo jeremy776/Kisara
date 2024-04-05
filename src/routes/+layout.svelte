@@ -1,6 +1,7 @@
 <script>
-	import { NavBrand, NavHamburger, Navbar, NavLi, NavUl } from 'flowbite-svelte';
 	import '../app.css';
+	/** @type {import('./$types').PageData} */
+	export let data;
 </script>
 
 <div class="navbar bg-base-100">
@@ -9,7 +10,13 @@
 	</div>
 	<div class="flex-none">
 		<ul class="menu menu-horizontal px-1">
-			<li><div>Beranda</div></li>
+			<li><a href="/">Beranda</a></li>
+			{#if data.user}
+				<li><a href={'/' + data.user.link_id}>Dashboard</a></li>
+				{#if data.user.role === 'admin'}
+					<li><a href="/admin">Admin</a></li>
+				{/if}
+			{/if}
 		</ul>
 	</div>
 </div>

@@ -1,4 +1,5 @@
 <script>
+
 	/** @type {import('./$types').PageData} */
 	export let data;
 
@@ -104,7 +105,8 @@
 						class="input input-bordered w-full mt-2"
 						disabled
 					/>
-					<button on:click={handleCopy} class="btn mt-5 btn-primary btn-block">📋 Salin link</button>
+					<button on:click={handleCopy} class="btn mt-5 btn-primary btn-block">📋 Salin link</button
+					>
 				</div>
 			</div>
 		{:else}
@@ -134,8 +136,6 @@
 		<div class="mt-4">
 			{#if message.length === 0}
 				<p class="text-center text-gray-400 mt-5">Belum ada pesan nih</p>
-			{:else}
-				<p class="text-center text-gray-400">Ada {message.length} pesan nih</p>
 			{/if}
 
 			<!-- {#each message as msg, index} -->
@@ -148,7 +148,7 @@
 						{#if isOwner}
 							<div>
 								<button
-									class="btn btn-xs rounded-lg btn-error text-white"
+									class="btn btn-xs rounded-sm btn-error text-white"
 									on:click={() => {
 										const modal = document.getElementById(`my_modal_${msg.id}`);
 										// @ts-ignore

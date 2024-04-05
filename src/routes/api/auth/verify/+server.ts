@@ -27,6 +27,7 @@ export async function GET({request, cookies}) {
         status: 200,
         user: {
             id: user.id,
+            role: user.role,
             username: user.username,
             link_id: user.link_id
         }
