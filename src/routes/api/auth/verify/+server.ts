@@ -9,10 +9,10 @@ export async function GET({request, cookies}) {
     //     return json({ message: 'Not logged in' }, { status: 401 });
     // }
 
-    const token = request.headers.get('Authorization')?.replace('Bearer ', '');
-    if(!token) return json({ message: 'Not logged in' }, { status: 401 });
+    const token = request.headers.get('Authorization')?.split(' ') || [];
+    if(token[1] === 'undefined') return json({ message: 'Not logged in', status: 401 });
 
-    const payload = await verifyJWT(token) as { sub: string };
+    const payload = await verifyJWT(token[1]) as { sub: string };
     if(!payload) return json({ message: 'Invalid token' }, { status: 401 });
 
     const user = await prisma.user.findUnique({

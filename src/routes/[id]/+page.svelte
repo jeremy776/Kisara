@@ -14,7 +14,20 @@
 	if (message.length > 0) {
 		message[message.length - 1].first_message = true;
 	}
-	console.log(message);
+
+	// buat variable baru untuk menyimpan total message
+	let totalMessage = message.length;
+	// ambil message selama 1 minggu kebelakang
+	let messageLastWeek = message.filter((msg) => {
+		const date = new Date(msg.createdAt);
+		const now = new Date();
+		const week = 7 * 24 * 60 * 60 * 1000;
+		return now.getTime() - date.getTime() <= week;
+	});
+	// bertambah berapa persen message selama 1 minggu kebelakang
+	let messageLastWeekPercentage = ((messageLastWeek.length / totalMessage) * 100);
+
+
 
 	function handleCopy() {
 		/**
@@ -105,7 +118,6 @@
 
 			<div class="text-lg mt-10 text-center">
 				<p class="text-md text-gray-500">Bagiin link kamu ke media sosial yuk</p>
-
 				<div>
 					<input
 						type="text"
@@ -117,6 +129,7 @@
 					<button on:click={handleCopy} class="btn mt-5 btn-primary btn-block">📋 Salin link</button
 					>
 				</div>
+
 			</div>
 		{:else}
 			<div class="w-full bg-base-200 rounded-3xl px-4 py-6">
