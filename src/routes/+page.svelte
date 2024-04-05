@@ -14,7 +14,6 @@
 		}).then((res) => {
 			if (res.ok) {
 				res.json().then((data) => {
-					// console.log(data)
 					if (data.status === 200) {
 						window.location.href = '/' + data.id;
 					}
@@ -51,6 +50,7 @@
 						<div class="stat-title">Total Komentar</div>
 						<div class="stat-value">
 							<!-- <Countup value={data.user.message} /> -->
+							{data.user.message} Komentar
 						</div>
 					</div>
 					<a href={`/${data.user.link_id}`} class="mt-4 btn btn-primary">Lihat link</a>
