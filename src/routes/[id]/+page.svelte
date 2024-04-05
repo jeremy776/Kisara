@@ -1,4 +1,5 @@
 <script>
+	import { fade, fly } from 'svelte/transition';
 	/** @type {import('./$types').PageData} */
 	export let data;
 
@@ -45,6 +46,16 @@
 		const form = event.currentTarget;
 		const formData = new FormData(form);
 		const datas = Object.fromEntries(formData.entries());
+		// let id = new Date().toISOString()
+		// message = [
+		// 	{
+		// 		id: id,
+		// 		content: datas.pesan,
+		// 		createdAt: new Date().toISOString()
+		// 	},
+		// 	...message
+		// ];
+		// form.reset();
 
 		fetch('/api/message', {
 			method: 'POST',
@@ -154,7 +165,9 @@
 
 	{#if early_access}
 		<!-- Announcement Banner -->
-		<div class="z-[100000000000000] sticky top-3 max-w-[85rem] w-full px-4 mt-5 sm:px-6 lg:px-8 mx-auto">
+		<div
+			class="z-[100000000000000] sticky top-3 max-w-[85rem] w-full px-4 mt-5 sm:px-6 lg:px-8 mx-auto"
+		>
 			<div
 				class="bg-blue-600 bg-[url('https://preline.co/assets/svg/examples/abstract-1.svg')] bg-no-repeat bg-cover bg-center p-4 rounded-lg text-center"
 			>
@@ -173,7 +186,7 @@
 
 			<!-- {#each message as msg, index} -->
 			{#each message as msg (msg.id)}
-				<div class={'bg-base-100 p-4 mt-4 rounded-lg'}>
+				<div transition:fly={{ y: -200 }} class={'bg-base-100 p-4 mt-4 rounded-lg'}>
 					<p class="">
 						{msg.content}
 					</p>
