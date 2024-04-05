@@ -10,6 +10,7 @@ export async function GET(p) {
         },
         select: {
             username: true,
+            role: true,
             comments: {
                 select: {
                     content: true,
@@ -21,7 +22,10 @@ export async function GET(p) {
     });
     // console.log(user)
     if(!user) return json({ message: 'User not found' }, { status: 404 });
-    return json({ message: 'success', status: 200, comments: user?.comments, author: user.username });
+    return json({ message: 'success', status: 200, comments: user?.comments, author: {
+        username: user.username,
+        role: user.role
+    } });
 }
 
 export async function DELETE(p) {
