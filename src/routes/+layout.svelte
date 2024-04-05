@@ -70,9 +70,6 @@
 						>Help & Support</a
 					>
 				</p>
-				<p>
-					<a class="inline-flex gap-x-2 text-gray-400 hover:text-gray-500" href="/">What's New</a>
-				</p>
 				<p><a class="inline-flex gap-x-2 text-gray-400 hover:text-gray-500" href="/">Status</a></p>
 			</div>
 		</div>
