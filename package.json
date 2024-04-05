@@ -1,6 +1,6 @@
 {
 	"name": "secretooooo",
-	"version": "0.0.1",
+	"version": "0.0.1-beta",
 	"private": true,
 	"scripts": {
 		"dev": "vite dev",
@@ -43,7 +43,9 @@
 	"type": "module",
 	"dependencies": {
 		"@prisma/client": "^5.11.0",
+		"@tailwindcss/typography": "^0.5.12",
 		"bcryptjs": "^2.4.3",
-		"jose": "^5.2.3"
+		"jose": "^5.2.3",
+		"snarkdown": "^2.0.0"
 	}
 }

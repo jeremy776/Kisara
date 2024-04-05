@@ -40,7 +40,7 @@
 
 			<div class="mt-3 grid space-y-3 text-sm">
 				<p>
-					<a class="inline-flex gap-x-2 text-gray-400 hover:text-gray-500" href="/">Changelog</a>
+					<a class="inline-flex gap-x-2 text-gray-400 hover:text-gray-500" href="/changelog">Changelog</a>
 				</p>
 				<p><a class="inline-flex gap-x-2 text-gray-400 hover:text-gray-500" href="/">Docs</a></p>
 			</div>
