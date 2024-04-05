@@ -11,6 +11,7 @@
 	<div class="flex-none">
 		<ul class="menu menu-horizontal px-1">
 			<li><a href="/">Beranda</a></li>
+			<li><a href="/blog">Blog</a></li>
 			{#if data.user}
 				<li><a href={'/' + data.user.link_id}>Dashboard</a></li>
 				{#if data.user.role === 'admin'}
@@ -27,7 +28,7 @@
 </div>
 
 <!-- ========== FOOTER ========== -->
-<footer class="mt-auto bg-base-300 rounded-t-3xl w-full max-w-[85rem] py-10 px-4 sm:px-6 lg:px-8 mx-auto">
+<footer class="mt-auto bg-base-300 rounded-t-3xl w-full max-w-7xl py-10 px-4 sm:px-6 lg:px-8 mx-auto">
 
 	<div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6 mb-10">
 		<div class="col-span-full hidden lg:col-span-1 lg:block">

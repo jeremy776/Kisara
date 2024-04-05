@@ -24,9 +24,18 @@ model User {
 }
 
 model Comment {
-  id              String   @id @default(auto()) @map("_id") @db.ObjectId
+  id              String         @id @default(auto()) @map("_id") @db.ObjectId
   content         String
-  createdAt       DateTime @default(now())
-  parentComment   User     @relation(fields: [parentCommentId], references: [id])
-  parentCommentId String   @db.ObjectId
+  createdAt       DateTime       @default(now())
+  parentComment   User           @relation(fields: [parentCommentId], references: [id])
+  parentCommentId String         @db.ObjectId
+  ReplyComment    ReplyComment[]
+}
+
+model ReplyComment {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  content       String
+  createdAt     DateTime @default(now())
+  parentReply   Comment  @relation(fields: [parentReplyId], references: [id])
+  parentReplyId String   @db.ObjectId
 }

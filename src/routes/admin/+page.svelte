@@ -3,7 +3,8 @@
 	export let data;
 
 	// origin url
-	let url = window.location.origin + '/';
+    const url = data.url+'/'
+    // console.log(data)
 </script>
 
 <svelte:head>

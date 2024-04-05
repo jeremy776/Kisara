@@ -109,7 +109,7 @@
 </svelte:head>
 
 <div class="flex items-center flex-col gap-3 min-h-full">
-	<div class="bg-base-100 w-full p-6 shadow-sm rounded-b-2xl">
+	<div class="bg-base-100 w-full max-w-7xl p-6 shadow-sm rounded-b-2xl">
 		{#if isOwner}
 			<div class="w-fulll bg-base-200 px-4 py-2 text-center">
 				<p class="text-xl aos-init">💬 Daftar Pesan kamu</p>
@@ -155,7 +155,7 @@
 	{#if early_access}
 		<!-- Announcement Banner -->
 		<div
-			class="z-[100000000000000] sticky top-3 max-w-[85rem] w-full px-4 mt-5 sm:px-6 lg:px-8 mx-auto"
+			class="z-[100000000000000] sticky top-3 max-w-7xl w-full px-4 mt-5 sm:px-6 lg:px-8 mx-auto"
 		>
 			<div
 				class="bg-blue-600 bg-[url('https://preline.co/assets/svg/examples/abstract-1.svg')] bg-no-repeat bg-cover bg-center p-4 rounded-lg text-center"
@@ -166,7 +166,7 @@
 		<!-- End Announcement Banner -->
 	{/if}
 
-	<div class="w-full p-6">
+	<div class="w-full max-w-7xl p-6">
 		<h2 class="text-xl text-left">⏱️ Timeline {author.username}</h2>
 		<div class="mt-4">
 			{#if message.length === 0}
