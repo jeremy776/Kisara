@@ -17,18 +17,6 @@
 		message[message.length - 1].first_message = true;
 	}
 
-	// buat variable baru untuk menyimpan total message
-	let totalMessage = message.length;
-	// ambil message selama 1 minggu kebelakang
-	let messageLastWeek = message.filter((msg) => {
-		const date = new Date(msg.createdAt);
-		const now = new Date();
-		const week = 7 * 24 * 60 * 60 * 1000;
-		return now.getTime() - date.getTime() <= week;
-	});
-	// bertambah berapa persen message selama 1 minggu kebelakang
-	let messageLastWeekPercentage = (messageLastWeek.length / totalMessage) * 100;
-
 	function handleCopy() {
 		/**
 		 * @type {any}
@@ -61,7 +49,43 @@
 				res.json().then((data) => {
 					if (data.status === 200) {
 						form.reset();
+						console.log(data.data)
+						data.data['ReplyComment'] = [];
 						message = [data.data, ...message];
+					}
+				});
+			} else {
+				console.error(res);
+			}
+		});
+	}
+
+	/**
+	 * @param {{ currentTarget: EventTarget & HTMLFormElement}} event
+	 * @param {string | number} id
+	 **/
+	function handleReply(event, id) {
+		const form = event.currentTarget;
+		const formData = new FormData(form);
+		const datas = Object.fromEntries(formData.entries());
+
+		fetch(`/api/message/${data.data.id}/${id}`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				pesan: datas.reply
+			})
+		}).then((res) => {
+			if (res.ok) {
+				res.json().then((data) => {
+					if (data.status === 200) {
+						form.reset();
+						console.log(data);
+						const index = message.findIndex((msg) => msg.id === id);
+						message[index].ReplyComment = [...message[index].ReplyComment, data.data];
+
 					}
 				});
 			} else {
@@ -173,7 +197,6 @@
 				<p class="text-center text-gray-400 mt-5">Belum ada pesan nih</p>
 			{/if}
 
-			<!-- {#each message as msg, index} -->
 			{#each message as msg (msg.id)}
 				<div transition:fly={{ y: -200 }} class={'bg-base-100 p-4 mt-4 rounded-lg'}>
 					<p class="">
@@ -182,17 +205,30 @@
 
 					{#if early_access}
 						<div class="mt-2">
-							<div class="relative">
+							<form on:submit|preventDefault={(e) => handleReply(e, msg.id)} class="relative">
 								<input
 									type="text"
+									id={msg.id}
+									name="reply"
+									autocomplete="off"
 									class="outline-none pr-16 border border-gray-700 px-2.5 py-1.5 w-full rounded-lg bg-base-300 text-sm"
 									placeholder="balas komentar"
 								/>
 								<div class="absolute flex items-center px-2 h-full top-0 right-0">
 									<button class="px-3 text-xs py-0.5 rounded-lg bg-blue-500">kirim</button>
 								</div>
-							</div>
+							</form>
 						</div>
+
+						{#if msg['ReplyComment'].length > 0}
+							<div class="my-4">
+								{#each msg.ReplyComment as reply (reply.id)}
+									<div class="bg-base-200 p-2 rounded-lg mx-2 mt-2">
+										<p class="text-sm text-gray-400">{reply.content}</p>
+									</div>
+								{/each}
+							</div>
+						{/if}
 					{/if}
 
 					<div class="flex justify-between mt-4">
@@ -229,9 +265,6 @@
 								</dialog>
 							</div>
 						{/if}
-						<!-- <p class="text-xs text-right text-gray-400">
-							{timeToDate(msg.createdAt)}
-						</p> -->
 						<span
 							class="inline-flex items-center gap-x-1.5 py-0.5 px-3 rounded-full text-xs font-medium bg-gray-800 text-gray-400"
 						>

@@ -6,14 +6,14 @@
 	const url = data.url + '/';
 
 	import { Chart, Card, A, Button, Dropdown, DropdownItem } from 'flowbite-svelte';
-	let options = {
+	let options_users = {
 		chart: {
 			height: '150px',
 			maxWidth: '100%',
 			type: 'area',
 			fontFamily: 'Inter, sans-serif',
 			dropShadow: {
-				enabled: true
+				enabled: false
 			},
 			toolbar: {
 				show: false
@@ -37,8 +37,12 @@
 		dataLabels: {
 			enabled: false
 		},
+		legend: {
+			show: false
+		},
 		stroke: {
-			width: 5
+			width: 3,
+			curve: 'smooth'
 		},
 		grid: {
 			show: false,
@@ -52,7 +56,7 @@
 		series: [
 			{
 				name: 'New users',
-				data: [6500, 6418, 6456, 6526, 6356, 6456, 23423, 345, 456, 234234, 2345],
+				data: [0, 2, 5, 0, 0, 0],
 				color: '#1A56DB'
 			}
 		],
@@ -63,10 +67,85 @@
 				'03 February',
 				'04 February',
 				'05 February',
-				'0654 February',
+				'05 February'
+			],
+			labels: {
+				show: false
+			},
+			axisBorder: {
+				show: false
+			},
+			axisTicks: {
+				show: false
+			}
+		},
+		yaxis: {
+			show: false
+		}
+	};
+
+	let options_messages = {
+		chart: {
+			height: '150px',
+			maxWidth: '100%',
+			type: 'area',
+			fontFamily: 'Inter, sans-serif',
+			dropShadow: {
+				enabled: false
+			},
+			toolbar: {
+				show: false
+			}
+		},
+		tooltip: {
+			enabled: true,
+			x: {
+				show: false
+			}
+		},
+		fill: {
+			type: 'gradient',
+			gradient: {
+				opacityFrom: 0.55,
+				opacityTo: 0,
+				shade: '#1C64F2',
+				gradientToColors: ['#1C64F2']
+			}
+		},
+		dataLabels: {
+			enabled: false
+		},
+		legend: {
+			show: false
+		},
+		stroke: {
+			width: 3,
+			curve: 'smooth'
+		},
+		grid: {
+			show: false,
+			strokeDashArray: 4,
+			padding: {
+				left: 2,
+				right: 2,
+				top: 0
+			}
+		},
+		series: [
+			{
+				name: 'New users',
+				data: [0, 2, 50, 0, 0, 0],
+				color: '#1A56DB'
+			}
+		],
+		xaxis: {
+			categories: [
+				'01 February',
 				'02 February',
+				'03 February',
+				'04 February',
 				'05 February',
-				'07 February'
+				'05 February'
 			],
 			labels: {
 				show: false
@@ -88,41 +167,56 @@
 	<title>Admin - Kisara</title>
 </svelte:head>
 
-<div class="flex p-3 mt-10 items-center w-full justify-center">
+<div class="flex items-center justify-center pt-10">
+	<div class="px-4 sm:px-6 lg:px-8 w-full">
+		<h2 class="text-2xl text-white font-semibold">Halaman Admin</h2>
+	</div>
+</div>
+<div class="grid grid-cols-1 gap-5 md:grid-cols-2 px-3 md:px-8 mt-10 place-items-center items-center w-full justify-center">
 	<Card size='xl' class="bg-base-300 w-full border-transparent">
 		<div class="flex justify-between">
 			<div>
-				<h5 class="leading-none text-3xl font-bold text-white pb-2">32.4k</h5>
+				<h5 class="leading-none text-3xl font-bold text-white pb-2">2</h5>
 				<p class="text-base font-normal text-gray-400">Users this week</p>
 			</div>
 			<div
 				class="flex items-center px-2.5 py-0.5 text-base font-semibold text-green-500 text-center"
 			>
-				12%
+				2%
 				<!-- <ChevronRightSolid class="w-3 h-3 ms-1" /> -->
 			</div>
 		</div>
-		<Chart {options} />
-		<div class="grid grid-cols-1 items-center border-t border-gray-700 justify-between">
-			<div class="flex justify-between items-center pt-5">
-				<Button
-					class="text-sm font-medium text-gray-400 text-center inline-flex items-center hover:text-white bg-transparent hover:bg-transparent focus:ring-transparent py-0"
-					>Last 7 days</Button
-				>
-				<Dropdown class="w-40" offset={-6}>
-					<DropdownItem>Yesterday</DropdownItem>
-					<DropdownItem>Today</DropdownItem>
-					<DropdownItem>Last 7 days</DropdownItem>
-					<DropdownItem>Last 30 days</DropdownItem>
-					<DropdownItem>Last 90 days</DropdownItem>
-				</Dropdown>
-				<A
-					href="/"
-					class="uppercase text-sm font-semibold hover:text-primary-700 dark:hover:text-primary-500 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 px-3 py-2 hover:no-underline"
+		<Chart options={options_users} />
+		<div class="grid grid-cols-1 items-center justify-between">
+			<div class="flex justify-end pt-5">
+				<div
+					class="uppercase text-sm font-semibold text-white rounded-lg px-3 py-2 hover:no-underline"
 				>
 					Users Report
-					<!-- <ChevronRightSolid class="w-2.5 h-2.5 ms-1.5" /> -->
-				</A>
+				</div>
+			</div>
+		</div>
+	</Card>
+	<Card size='xl' class="bg-base-300 w-full border-transparent">
+		<div class="flex justify-between">
+			<div>
+				<h5 class="leading-none text-3xl font-bold text-white pb-2">100k</h5>
+				<p class="text-base font-normal text-gray-400">Messages this week</p>
+			</div>
+			<div
+				class="flex items-center px-2.5 py-0.5 text-base font-semibold text-green-500 text-center"
+			>
+				10%
+			</div>
+		</div>
+		<Chart options={options_messages} />
+		<div class="grid grid-cols-1 items-center justify-between">
+			<div class="flex justify-end pt-5">
+				<div
+					class="uppercase text-sm font-semibold text-white rounded-lg px-3 py-2 hover:no-underline"
+				>
+					Users Report
+				</div>
 			</div>
 		</div>
 	</Card>
@@ -136,9 +230,7 @@
 			<div class="p-1.5 min-w-full inline-block align-middle">
 				<div class="bg-base-300 rounded-xl shadow-sm overflow-hidden">
 					<!-- Header -->
-					<div
-						class="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center"
-					>
+					<div class="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center">
 						<div>
 							<h2 class="text-xl font-semibold text-white">Users</h2>
 							<p class="text-sm text-gray-400">Add users, edit and more.</p>

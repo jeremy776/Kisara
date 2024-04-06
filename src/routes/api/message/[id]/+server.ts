@@ -16,8 +16,15 @@ export async function GET(p) {
                     content: true,
                     createdAt: true,
                     id: true,
-                }
-            }
+                    ReplyComment: {
+                        select: {
+                            content: true,
+                            createdAt: true,
+                            id: true
+                        }
+                    }
+                },
+            },
         }
     });
     // console.log(user)
@@ -49,11 +56,20 @@ export async function DELETE(p) {
     });
     if(!comment) return json({ message: 'Comment not found' }, { status: 401 });
 
-    await prisma.comment.delete({
+    let delete_reply = prisma.replyComment.deleteMany({
+        where: {
+            parentReplyId: comment.id
+        }
+    });
+    let delete_comment = prisma.comment.delete({
         where: {
             id: comment.id
         }
     });
+
+    const transaction = await prisma.$transaction([delete_reply, delete_comment]);
+
+    console.log(transaction)
 
     return json({ message: 'success', status: 200 });
 }

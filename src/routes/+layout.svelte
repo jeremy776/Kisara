@@ -36,7 +36,7 @@
 		</div>
 
 		<div>
-			<h4 class="text-xs font-semibold text-white uppercase">Product</h4>
+			<h4 class="text-xs font-semibold text-white uppercase">Website</h4>
 
 			<div class="mt-3 grid space-y-3 text-sm">
 				<p>
