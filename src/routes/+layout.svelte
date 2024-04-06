@@ -10,7 +10,6 @@
 	</div>
 	<div class="flex-none">
 		<ul class="menu menu-horizontal px-1">
-			<li><a href="/">Beranda</a></li>
 			<li><a href="/blog">Blog</a></li>
 			{#if data.user}
 				<li><a href={'/' + data.user.link_id}>Dashboard</a></li>
@@ -37,7 +36,7 @@
 		</div>
 
 		<div>
-			<h4 class="text-xs font-semibold text-white uppercase">Product</h4>
+			<h4 class="text-xs font-semibold text-white uppercase">Website</h4>
 
 			<div class="mt-3 grid space-y-3 text-sm">
 				<p>
@@ -54,7 +53,7 @@
 				<p>
 					<a class="inline-flex gap-x-2 text-gray-400 hover:text-gray-500" href="/about-us">About us</a>
 				</p>
-				<p><a class="inline-flex gap-x-2 text-gray-400 hover:text-gray-500" href="/">Blog</a></p>
+				<p><a class="inline-flex gap-x-2 text-gray-400 hover:text-gray-500" href="/blog">Blog</a></p>
 				<p>
 					<a class="inline-flex gap-x-2 text-gray-400 hover:text-gray-500" href="/">Partner</a>
 					<span class="inline text-blue-600">— New</span>

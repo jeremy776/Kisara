@@ -44,8 +44,11 @@
 	"dependencies": {
 		"@prisma/client": "^5.11.0",
 		"@tailwindcss/typography": "^0.5.12",
+		"apexcharts": "^3.48.0",
 		"bcryptjs": "^2.4.3",
+		"flowbite-svelte-icons": "^1.5.0",
 		"jose": "^5.2.3",
-		"snarkdown": "^2.0.0"
+		"snarkdown": "^2.0.0",
+		"svelte-apexcharts": "^1.0.2"
 	}
 }

@@ -19,7 +19,9 @@
 					}
 				});
 			} else {
-				console.error(res);
+				res.json().then((data) => {
+					alert(data.message);
+				});
 			}
 		});
 	}

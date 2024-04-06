@@ -1,15 +1,226 @@
 <script>
+	// @ts-nocheck
+
 	/** @type {import('./$types').PageData} */
 	export let data;
+	const url = data.url + '/';
 
-	// origin url
-    const url = data.url+'/'
-    // console.log(data)
+	import { Chart, Card, A, Button, Dropdown, DropdownItem } from 'flowbite-svelte';
+	let options_users = {
+		chart: {
+			height: '150px',
+			maxWidth: '100%',
+			type: 'area',
+			fontFamily: 'Inter, sans-serif',
+			dropShadow: {
+				enabled: false
+			},
+			toolbar: {
+				show: false
+			}
+		},
+		tooltip: {
+			enabled: true,
+			x: {
+				show: false
+			}
+		},
+		fill: {
+			type: 'gradient',
+			gradient: {
+				opacityFrom: 0.55,
+				opacityTo: 0,
+				shade: '#1C64F2',
+				gradientToColors: ['#1C64F2']
+			}
+		},
+		dataLabels: {
+			enabled: false
+		},
+		legend: {
+			show: false
+		},
+		stroke: {
+			width: 3,
+			curve: 'smooth'
+		},
+		grid: {
+			show: false,
+			strokeDashArray: 4,
+			padding: {
+				left: 2,
+				right: 2,
+				top: 0
+			}
+		},
+		series: [
+			{
+				name: 'New users',
+				data: [0, 2, 5, 0, 0, 0],
+				color: '#1A56DB'
+			}
+		],
+		xaxis: {
+			categories: [
+				'01 February',
+				'02 February',
+				'03 February',
+				'04 February',
+				'05 February',
+				'05 February'
+			],
+			labels: {
+				show: false
+			},
+			axisBorder: {
+				show: false
+			},
+			axisTicks: {
+				show: false
+			}
+		},
+		yaxis: {
+			show: false
+		}
+	};
+
+	let options_messages = {
+		chart: {
+			height: '150px',
+			maxWidth: '100%',
+			type: 'area',
+			fontFamily: 'Inter, sans-serif',
+			dropShadow: {
+				enabled: false
+			},
+			toolbar: {
+				show: false
+			}
+		},
+		tooltip: {
+			enabled: true,
+			x: {
+				show: false
+			}
+		},
+		fill: {
+			type: 'gradient',
+			gradient: {
+				opacityFrom: 0.55,
+				opacityTo: 0,
+				shade: '#1C64F2',
+				gradientToColors: ['#1C64F2']
+			}
+		},
+		dataLabels: {
+			enabled: false
+		},
+		legend: {
+			show: false
+		},
+		stroke: {
+			width: 3,
+			curve: 'smooth'
+		},
+		grid: {
+			show: false,
+			strokeDashArray: 4,
+			padding: {
+				left: 2,
+				right: 2,
+				top: 0
+			}
+		},
+		series: [
+			{
+				name: 'New users',
+				data: [0, 2, 50, 0, 0, 0],
+				color: '#1A56DB'
+			}
+		],
+		xaxis: {
+			categories: [
+				'01 February',
+				'02 February',
+				'03 February',
+				'04 February',
+				'05 February',
+				'05 February'
+			],
+			labels: {
+				show: false
+			},
+			axisBorder: {
+				show: false
+			},
+			axisTicks: {
+				show: false
+			}
+		},
+		yaxis: {
+			show: false
+		}
+	};
 </script>
 
 <svelte:head>
-    <title>Admin - Kisara</title>
+	<title>Admin - Kisara</title>
 </svelte:head>
+
+<div class="flex items-center justify-center pt-10">
+	<div class="px-4 sm:px-6 lg:px-8 w-full">
+		<h2 class="text-2xl text-white font-semibold">Halaman Admin</h2>
+	</div>
+</div>
+<div class="grid grid-cols-1 gap-5 md:grid-cols-2 px-3 md:px-8 mt-10 place-items-center items-center w-full justify-center">
+	<Card size='xl' class="bg-base-300 w-full border-transparent">
+		<div class="flex justify-between">
+			<div>
+				<h5 class="leading-none text-3xl font-bold text-white pb-2">2</h5>
+				<p class="text-base font-normal text-gray-400">Users this week</p>
+			</div>
+			<div
+				class="flex items-center px-2.5 py-0.5 text-base font-semibold text-green-500 text-center"
+			>
+				2%
+				<!-- <ChevronRightSolid class="w-3 h-3 ms-1" /> -->
+			</div>
+		</div>
+		<Chart options={options_users} />
+		<div class="grid grid-cols-1 items-center justify-between">
+			<div class="flex justify-end pt-5">
+				<div
+					class="uppercase text-sm font-semibold text-white rounded-lg px-3 py-2 hover:no-underline"
+				>
+					Users Report
+				</div>
+			</div>
+		</div>
+	</Card>
+	<Card size='xl' class="bg-base-300 w-full border-transparent">
+		<div class="flex justify-between">
+			<div>
+				<h5 class="leading-none text-3xl font-bold text-white pb-2">100k</h5>
+				<p class="text-base font-normal text-gray-400">Messages this week</p>
+			</div>
+			<div
+				class="flex items-center px-2.5 py-0.5 text-base font-semibold text-green-500 text-center"
+			>
+				10%
+			</div>
+		</div>
+		<Chart options={options_messages} />
+		<div class="grid grid-cols-1 items-center justify-between">
+			<div class="flex justify-end pt-5">
+				<div
+					class="uppercase text-sm font-semibold text-white rounded-lg px-3 py-2 hover:no-underline"
+				>
+					Users Report
+				</div>
+			</div>
+		</div>
+	</Card>
+</div>
 
 <!-- Table Section -->
 <div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
@@ -19,9 +230,7 @@
 			<div class="p-1.5 min-w-full inline-block align-middle">
 				<div class="bg-base-300 rounded-xl shadow-sm overflow-hidden">
 					<!-- Header -->
-					<div
-						class="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-b border-gray-600"
-					>
+					<div class="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center">
 						<div>
 							<h2 class="text-xl font-semibold text-white">Users</h2>
 							<p class="text-sm text-gray-400">Add users, edit and more.</p>
@@ -60,8 +269,8 @@
 					<!-- End Header -->
 
 					<!-- Table -->
-					<table class="min-w-full divide-y divide-gray-600">
-						<thead class="bg-base-200">
+					<table class="min-w-full">
+						<thead class="bg-base-300">
 							<tr>
 								<th scope="col" class="ps-6 py-3 text-start">
 									<div class="flex items-center gap-x-2">
@@ -107,7 +316,7 @@
 							</tr>
 						</thead>
 
-						<tbody class="divide-y divide-gray-600">
+						<tbody class="">
 							{#each data.admin_data.users as user}
 								<tr>
 									<td class="size-px whitespace-nowrap">
@@ -205,8 +414,6 @@
 								<span class="font-semibold text-gray-300">{data.admin_data.users.length}</span> results
 							</p>
 						</div>
-
-						
 					</div>
 					<!-- End Footer -->
 				</div>

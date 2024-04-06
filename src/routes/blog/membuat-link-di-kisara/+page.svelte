@@ -88,14 +88,14 @@
 					Melakukan pendaftaran atau pembuatan akun baru pada KiSaRa
 				</h2>
 
-				<p class="text-lg text-gray-200">
+				<p class="text-md text-gray-200">
 					Pada artikel ini, kita akan membahas bagaimana cara melakukan pendaftaran atau pembuatan
 					akun baru pada KiSaRa. Sebelumnya mimin mau kasih tau nih, jadi KiSara itu sebuah platform
 					yang dibuat supaya kamu mempunyai confession box pribadi.
 				</p>
 			</div>
 
-			<p class="text-lg text-gray-200">
+			<p class="text-md text-gray-200">
 				Jadi kamu bisa dapetin tuh pesan dari temen kamu tanpa tau siapa yang ngirim. Nah, sekarang
 				kita akan membahas bagaimana cara melakukan pendaftaran atau pembuatan akun baru pada
 				KiSaRa.
@@ -111,15 +111,15 @@
 				<figcaption class="mt-3 text-sm text-center text-gray-500">Homepage KiSaRa</figcaption>
 			</figure>
 
-			<p class="text-lg text-gray-200">
+			<p class="text-md text-gray-200">
 				Yang pertama perlu kamu lakukan itu cuma buka aja website KiSaRa di <a
-					href="https://kisara.vercel.app"
+					href="https://kisara2.vercel.app"
 					class="text-blue-400 decoration-2 hover:underline font-medium"
 					>https://kisara2.vercel.app</a
 				>. Setelah itu kamu akan diarahkan ke halaman utama KiSaRa seperti gambar di atas.
 			</p>
 
-			<p class="text-lg text-gray-200">
+			<p class="text-md text-gray-200">
 				Setelah itu kamu cuma perlu masukin nama kamu dan juga password, lalu klik tombol "Daftar".
 				Setelah itu kamu akan diarahkan ke link yang sudah dibuat.
 			</p>
@@ -135,14 +135,14 @@
 			</figure>
 
 			<div class="space-y-3">
-				<p class="text-lg text-gray-300">
+				<p class="text-md text-gray-300">
 					Setelah itu kamu akan diarahkan ke dashboard profile kamu. Disini kamu bisa melihat semua
 					pesan yang kamu terima. Oh ya jika ada pesan yang kamu anggap tidak pantas, kamu bisa
 					langsung hapus pesan tersebut.
 				</p>
 			</div>
 
-			<p class="text-lg text-gray-200">
+			<p class="text-md text-gray-200">
 				Nah, itu dia cara melakukan pendaftaran atau pembuatan akun baru pada KiSaRa. Jika kamu
 				masih bingung, kamu bisa langsung chat mimin di <a
 					href="https://discord.gg/3Zkx2VJ"
