@@ -1,15 +1,132 @@
 <script>
+	// @ts-nocheck
+
 	/** @type {import('./$types').PageData} */
 	export let data;
+	const url = data.url + '/';
 
-	// origin url
-    const url = data.url+'/'
-    // console.log(data)
+	import { Chart, Card, A, Button, Dropdown, DropdownItem } from 'flowbite-svelte';
+	let options = {
+		chart: {
+			height: '150px',
+			maxWidth: '100%',
+			type: 'area',
+			fontFamily: 'Inter, sans-serif',
+			dropShadow: {
+				enabled: true
+			},
+			toolbar: {
+				show: false
+			}
+		},
+		tooltip: {
+			enabled: true,
+			x: {
+				show: false
+			}
+		},
+		fill: {
+			type: 'gradient',
+			gradient: {
+				opacityFrom: 0.55,
+				opacityTo: 0,
+				shade: '#1C64F2',
+				gradientToColors: ['#1C64F2']
+			}
+		},
+		dataLabels: {
+			enabled: false
+		},
+		stroke: {
+			width: 5
+		},
+		grid: {
+			show: false,
+			strokeDashArray: 4,
+			padding: {
+				left: 2,
+				right: 2,
+				top: 0
+			}
+		},
+		series: [
+			{
+				name: 'New users',
+				data: [6500, 6418, 6456, 6526, 6356, 6456, 23423, 345, 456, 234234, 2345],
+				color: '#1A56DB'
+			}
+		],
+		xaxis: {
+			categories: [
+				'01 February',
+				'02 February',
+				'03 February',
+				'04 February',
+				'05 February',
+				'0654 February',
+				'02 February',
+				'05 February',
+				'07 February'
+			],
+			labels: {
+				show: false
+			},
+			axisBorder: {
+				show: false
+			},
+			axisTicks: {
+				show: false
+			}
+		},
+		yaxis: {
+			show: false
+		}
+	};
 </script>
 
 <svelte:head>
-    <title>Admin - Kisara</title>
+	<title>Admin - Kisara</title>
 </svelte:head>
+
+<div class="flex p-3 mt-10 items-center w-full justify-center">
+	<Card size='xl' class="bg-base-300 w-full border-transparent">
+		<div class="flex justify-between">
+			<div>
+				<h5 class="leading-none text-3xl font-bold text-white pb-2">32.4k</h5>
+				<p class="text-base font-normal text-gray-400">Users this week</p>
+			</div>
+			<div
+				class="flex items-center px-2.5 py-0.5 text-base font-semibold text-green-500 text-center"
+			>
+				12%
+				<!-- <ChevronRightSolid class="w-3 h-3 ms-1" /> -->
+			</div>
+		</div>
+		<Chart {options} />
+		<div class="grid grid-cols-1 items-center border-t border-gray-700 justify-between">
+			<div class="flex justify-between items-center pt-5">
+				<Button
+					class="text-sm font-medium text-gray-400 text-center inline-flex items-center hover:text-white bg-transparent hover:bg-transparent focus:ring-transparent py-0"
+					>Last 7 days</Button
+				>
+				<Dropdown class="w-40" offset={-6}>
+					<DropdownItem>Yesterday</DropdownItem>
+					<DropdownItem>Today</DropdownItem>
+					<DropdownItem>Last 7 days</DropdownItem>
+					<DropdownItem>Last 30 days</DropdownItem>
+					<DropdownItem>Last 90 days</DropdownItem>
+				</Dropdown>
+				<A
+					href="/"
+					class="uppercase text-sm font-semibold hover:text-primary-700 dark:hover:text-primary-500 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 px-3 py-2 hover:no-underline"
+				>
+					Users Report
+					<!-- <ChevronRightSolid class="w-2.5 h-2.5 ms-1.5" /> -->
+				</A>
+			</div>
+		</div>
+	</Card>
+</div>
 
 <!-- Table Section -->
 <div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
@@ -20,7 +137,7 @@
 				<div class="bg-base-300 rounded-xl shadow-sm overflow-hidden">
 					<!-- Header -->
 					<div
-						class="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-b border-gray-600"
+						class="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center"
 					>
 						<div>
 							<h2 class="text-xl font-semibold text-white">Users</h2>
@@ -60,8 +177,8 @@
 					<!-- End Header -->
 
 					<!-- Table -->
-					<table class="min-w-full divide-y divide-gray-600">
-						<thead class="bg-base-200">
+					<table class="min-w-full">
+						<thead class="bg-base-300">
 							<tr>
 								<th scope="col" class="ps-6 py-3 text-start">
 									<div class="flex items-center gap-x-2">
@@ -107,7 +224,7 @@
 							</tr>
 						</thead>
 
-						<tbody class="divide-y divide-gray-600">
+						<tbody class="">
 							{#each data.admin_data.users as user}
 								<tr>
 									<td class="size-px whitespace-nowrap">
@@ -205,8 +322,6 @@
 								<span class="font-semibold text-gray-300">{data.admin_data.users.length}</span> results
 							</p>
 						</div>
-
-						
 					</div>
 					<!-- End Footer -->
 				</div>

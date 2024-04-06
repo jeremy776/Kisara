@@ -31,7 +31,7 @@
 			</div>
 			<div class="mt-auto flex items-center gap-x-3">
 				<div>
-					<h5 class="text-sm text-white">By Christian Jeremy</h5>
+					<h5 class="text-sm text-gray-400">By Kisara Admin</h5>
 				</div>
 			</div>
 		</a>
