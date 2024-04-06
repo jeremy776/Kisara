@@ -6,6 +6,14 @@
 	const url = data.url + '/';
 
 	import { Chart, Card, A, Button, Dropdown, DropdownItem } from 'flowbite-svelte';
+	const users_chart = {
+		x: data.admin_data.chart.user.map((item) => item.date),
+		y: data.admin_data.chart.user.map((item) => item.value)
+	}
+	const messages_chart = {
+		x: data.admin_data.chart.comment.map((item) => item.date),
+		y: data.admin_data.chart.comment.map((item) => item.value)
+	}
 	let options_users = {
 		chart: {
 			height: '150px',
@@ -56,19 +64,12 @@
 		series: [
 			{
 				name: 'New users',
-				data: [0, 2, 5, 0, 0, 0],
+				data: users_chart.y,
 				color: '#1A56DB'
 			}
 		],
 		xaxis: {
-			categories: [
-				'01 February',
-				'02 February',
-				'03 February',
-				'04 February',
-				'05 February',
-				'05 February'
-			],
+			categories: users_chart.x,
 			labels: {
 				show: false
 			},
@@ -84,6 +85,8 @@
 		}
 	};
 
+
+	
 	let options_messages = {
 		chart: {
 			height: '150px',
@@ -108,8 +111,8 @@
 			gradient: {
 				opacityFrom: 0.55,
 				opacityTo: 0,
-				shade: '#1C64F2',
-				gradientToColors: ['#1C64F2']
+				shade: '#57f771',
+				gradientToColors: ['#a7e8bf']
 			}
 		},
 		dataLabels: {
@@ -133,20 +136,13 @@
 		},
 		series: [
 			{
-				name: 'New users',
-				data: [0, 2, 50, 0, 0, 0],
-				color: '#1A56DB'
+				name: 'New comments',
+				data: messages_chart.y,
+				color: '#00ff66'
 			}
 		],
 		xaxis: {
-			categories: [
-				'01 February',
-				'02 February',
-				'03 February',
-				'04 February',
-				'05 February',
-				'05 February'
-			],
+			categories: messages_chart.x,
 			labels: {
 				show: false
 			},
@@ -176,14 +172,13 @@
 	<Card size='xl' class="bg-base-300 w-full border-transparent">
 		<div class="flex justify-between">
 			<div>
-				<h5 class="leading-none text-3xl font-bold text-white pb-2">2</h5>
-				<p class="text-base font-normal text-gray-400">Users this week</p>
+				<h5 class="leading-none text-3xl font-bold text-white pb-2">{data.admin_data.users.length}</h5>
+				<p class="text-base font-normal text-gray-400">Users</p>
 			</div>
 			<div
 				class="flex items-center px-2.5 py-0.5 text-base font-semibold text-green-500 text-center"
 			>
-				2%
-				<!-- <ChevronRightSolid class="w-3 h-3 ms-1" /> -->
+			-
 			</div>
 		</div>
 		<Chart options={options_users} />
@@ -200,13 +195,13 @@
 	<Card size='xl' class="bg-base-300 w-full border-transparent">
 		<div class="flex justify-between">
 			<div>
-				<h5 class="leading-none text-3xl font-bold text-white pb-2">100k</h5>
-				<p class="text-base font-normal text-gray-400">Messages this week</p>
+				<h5 class="leading-none text-3xl font-bold text-white pb-2">{data.admin_data.comments.length}</h5>
+				<p class="text-base font-normal text-gray-400">Messages</p>
 			</div>
 			<div
 				class="flex items-center px-2.5 py-0.5 text-base font-semibold text-green-500 text-center"
 			>
-				10%
+			-
 			</div>
 		</div>
 		<Chart options={options_messages} />
