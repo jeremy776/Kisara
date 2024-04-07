@@ -21,7 +21,7 @@ export async function handle({ event, resolve }) {
 				}
 			});
 			let verif = await verifOwners.json();
-			if (verif.user && verif.user.role === 'admin') {
+			if (verif.user && ['admin', 'super'].includes(verif.user.role)) {
 				return await resolve(event);
 			} else {
 				return redirect(307, '/');

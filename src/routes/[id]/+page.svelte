@@ -25,8 +25,13 @@
 		input?.select();
 		input?.setSelectionRange(0, 99999);
 		navigator.clipboard.writeText(input?.value);
+		let sc = document.getElementsByClassName('js-clipboard-default');
+		let scs = document.getElementsByClassName('js-clipboard-success');
 
-		alert('Link berhasil di salin');
+		if (!sc[0].classList.contains('hidden')) {
+			sc[0].classList.toggle('hidden');
+			scs[0].classList.toggle('hidden');
+		}
 	}
 
 	/** @param {{ currentTarget: EventTarget & HTMLFormElement}} event */
@@ -49,7 +54,7 @@
 				res.json().then((data) => {
 					if (data.status === 200) {
 						form.reset();
-						console.log(data.data)
+						console.log(data.data);
 						data.data['ReplyComment'] = [];
 						message = [data.data, ...message];
 					}
@@ -85,7 +90,6 @@
 						console.log(data);
 						const index = message.findIndex((msg) => msg.id === id);
 						message[index].ReplyComment = [...message[index].ReplyComment, data.data];
-
 					}
 				});
 			} else {
@@ -141,24 +145,77 @@
 
 			<div class="text-lg mt-10 text-center">
 				<p class="text-md text-gray-500">Bagiin link kamu ke media sosial yuk</p>
-				<div>
-					<input
-						type="text"
-						id="url"
-						value={data.data.url}
-						class="input input-bordered w-full mt-2"
-						disabled
-					/>
-					<button on:click={handleCopy} class="btn mt-5 btn-primary btn-block">📋 Salin link</button
+				<div class="mt-3">
+					<input type="hidden" id="hs-clipboard-tooltip" value={data.data.url} />
+
+					<button
+						type="button"
+						class="w-full max-w-sm js-clipboard-example [--trigger:focus] hs-tooltip relative py-3 px-4 inline-flex justify-between items-center border-gray-700 gap-x-2 text-sm font-mono rounded-lg border shadow-sm hover:bg-base-300 disabled:opacity-50 disabled:pointer-events-none"
+						data-clipboard-target="#hs-clipboard-tooltip"
+						data-clipboard-action="copy"
+						data-clipboard-success-text="Copied"
+						on:click={handleCopy}
 					>
+						{data.data.url}
+						<span class="border-s ps-3.5">
+							<svg
+								class="js-clipboard-default size-4 group-hover:rotate-6 transition"
+								xmlns="http://www.w3.org/2000/svg"
+								width="24"
+								height="24"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="2"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+							>
+								<rect width="8" height="4" x="8" y="2" rx="1" ry="1"></rect>
+								<path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"
+								></path>
+							</svg>
+
+							<svg
+								class="js-clipboard-success hidden size-4 text-green-400 rotate-6"
+								xmlns="http://www.w3.org/2000/svg"
+								width="24"
+								height="24"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="2"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+							>
+								<polyline points="20 6 9 17 4 12"></polyline>
+							</svg>
+						</span>
+
+						<span
+							class="hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible opacity-0 transition-opacity hidden invisible z-10 py-1 px-2 bg-gray-900 text-xs font-medium text-white rounded-lg shadow-sm"
+							role="tooltip"
+						>
+							Copied
+						</span>
+					</button>
 				</div>
 			</div>
 		{:else}
 			<div class="w-full bg-base-200 rounded-3xl px-4 py-6">
 				<div class="space-y-">
-					<h2 class="font-semibold">Mau ngirim pesan apa nih ke {author.username}?</h2>
+					<h2 class="font-semibold">
+						{#if author.role == 'super'}
+							Hello heloo, ini halaman punya admin
+						{:else}
+							Mau ngirim pesan apa nih ke {author.username}?
+						{/if}
+					</h2>
 					<p class="text-sm text-gray-400">
-						Tenang aja, {author.username} ga bakalan tau kok yang ngirim pesan nya siapa
+						{#if author.role == 'super'}
+							disini kamu bisa curhat tentang apa aja tanpa takut identitas kamu di ketahui kok
+						{:else}
+							Tenang aja, {author.username} ga bakalan tau kok yang ngirim pesan nya siapa
+						{/if}
 					</p>
 				</div>
 
@@ -170,7 +227,13 @@
 						class="text-sm input w-full"
 						placeholder="tulisnya tetep pake etika yaa..."
 					/>
-					<button class="btn btn-success mt-5 btn-sm">Kirim ke {author.username}</button>
+					<button class="btn btn-success mt-5 btn-sm">
+						{#if author.role == 'super'}
+							Kirim curhatan
+						{:else}
+							Kirim ke {author.username}
+						{/if}
+					</button>
 				</form>
 			</div>
 		{/if}
@@ -188,6 +251,16 @@
 			</div>
 		</div>
 		<!-- End Announcement Banner -->
+	{:else}
+		<div
+			class="z-[100000000000000] sticky top-3 max-w-7xl w-full px-4 mt-5 sm:px-6 lg:px-8 mx-auto"
+		>
+			<div
+				class="bg-blue-600 bg-[url('https://preline.co/assets/svg/examples/abstract-1.svg')] bg-no-repeat bg-cover bg-center p-4 rounded-lg text-center"
+			>
+				<p class="me-2 inline-block text-white">Kamu berada di halaman tempat memberikan curhatan</p>
+			</div>
+		</div>
 	{/if}
 
 	<div class="w-full max-w-7xl p-6">

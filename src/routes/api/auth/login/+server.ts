@@ -12,14 +12,14 @@ export async function POST({ request, cookies }) {
 		}
 		const user = await prisma.user.findUnique({
 			where: {
-				username: body.name
+				username: body.name.toLowerCase()
 			}
 		});
 		if (!user) {
 			const hashedPassword = (await bcrypt.hash(body.password, 10)) as string;
 			const userd = await prisma.user.create({
 				data: {
-					username: body.name,
+					username: body.name.toLowerCase(),
 					link_id: link_id(),
 					password: hashedPassword
 				}
@@ -46,10 +46,12 @@ export async function POST({ request, cookies }) {
 		const token = await jwt_sign(
 			{ sub: user.id },
 			{
-				exp: `${JWT_EXPIRATION_TIME}m`
+				exp: `${JWT_EXPIRATION_TIME}m`,
+				// exp: `9000000000000000000000000000000000000000000000000000m`
 			}
 		);
 		const tokenMaxAge = parseInt(JWT_EXPIRATION_TIME) * 60;
+		// const tokenMaxAge = parseInt(9000000000000000000000000000000000000000000000000000) * 60
 		const cookieOps = {
 			httpOnly: true,
 			path: '/',

@@ -9,11 +9,11 @@
 	const users_chart = {
 		x: data.admin_data.chart.user.map((item) => item.date),
 		y: data.admin_data.chart.user.map((item) => item.value)
-	}
+	};
 	const messages_chart = {
 		x: data.admin_data.chart.comment.map((item) => item.date),
 		y: data.admin_data.chart.comment.map((item) => item.value)
-	}
+	};
 	let options_users = {
 		chart: {
 			height: '150px',
@@ -85,8 +85,6 @@
 		}
 	};
 
-
-	
 	let options_messages = {
 		chart: {
 			height: '150px',
@@ -157,6 +155,16 @@
 			show: false
 		}
 	};
+
+	function timeToDate(time) {
+		const date = new Date(time);
+		// change format to 03 March 2021
+		return date.toLocaleDateString('id-ID', {
+			year: 'numeric',
+			month: 'long',
+			day: 'numeric'
+		});
+	}
 </script>
 
 <svelte:head>
@@ -168,17 +176,21 @@
 		<h2 class="text-2xl text-white font-semibold">Halaman Admin</h2>
 	</div>
 </div>
-<div class="grid grid-cols-1 gap-5 md:grid-cols-2 px-3 md:px-8 mt-10 place-items-center items-center w-full justify-center">
-	<Card size='xl' class="bg-base-300 w-full border-transparent">
+<div
+	class="grid grid-cols-1 gap-5 md:grid-cols-2 px-3 md:px-8 mt-10 place-items-center items-center w-full justify-center"
+>
+	<Card size="xl" class="bg-base-300 w-full border-transparent">
 		<div class="flex justify-between">
 			<div>
-				<h5 class="leading-none text-3xl font-bold text-white pb-2">{data.admin_data.users.length}</h5>
+				<h5 class="leading-none text-3xl font-bold text-white pb-2">
+					{data.admin_data.users.length}
+				</h5>
 				<p class="text-base font-normal text-gray-400">Users</p>
 			</div>
 			<div
 				class="flex items-center px-2.5 py-0.5 text-base font-semibold text-green-500 text-center"
 			>
-			-
+				-
 			</div>
 		</div>
 		<Chart options={options_users} />
@@ -192,16 +204,18 @@
 			</div>
 		</div>
 	</Card>
-	<Card size='xl' class="bg-base-300 w-full border-transparent">
+	<Card size="xl" class="bg-base-300 w-full border-transparent">
 		<div class="flex justify-between">
 			<div>
-				<h5 class="leading-none text-3xl font-bold text-white pb-2">{data.admin_data.comments.length}</h5>
+				<h5 class="leading-none text-3xl font-bold text-white pb-2">
+					{data.admin_data.comments.length}
+				</h5>
 				<p class="text-base font-normal text-gray-400">Messages</p>
 			</div>
 			<div
 				class="flex items-center px-2.5 py-0.5 text-base font-semibold text-green-500 text-center"
 			>
-			-
+				-
 			</div>
 		</div>
 		<Chart options={options_messages} />
@@ -210,7 +224,7 @@
 				<div
 					class="uppercase text-sm font-semibold text-white rounded-lg px-3 py-2 hover:no-underline"
 				>
-					Users Report
+					Messages Report
 				</div>
 			</div>
 		</div>
@@ -233,12 +247,12 @@
 
 						<div>
 							<div class="inline-flex gap-x-2">
-								<a
+								<!-- <a
 									class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none"
 									href="/"
 								>
 									View all
-								</a>
+								</a> -->
 
 								<a
 									class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
@@ -256,7 +270,7 @@
 										stroke-linecap="round"
 										stroke-linejoin="round"><path d="M5 12h14" /><path d="M12 5v14" /></svg
 									>
-									Create user
+									Buat akun
 								</a>
 							</div>
 						</div>
@@ -343,23 +357,43 @@
 									</td>
 									<td class="size-px whitespace-nowrap">
 										<div class="px-6 py-3">
-											<span
-												class="py-1 px-1.5 inline-flex items-center gap-x-1 text-xs font-medium bg-teal-100 text-teal-800 rounded-full"
-											>
-												<svg
-													class="size-2.5"
-													xmlns="http://www.w3.org/2000/svg"
-													width="16"
-													height="16"
-													fill="currentColor"
-													viewBox="0 0 16 16"
+											{#if user.role == 'user'}
+												<span
+													class="py-1 px-1.5 inline-flex items-center gap-x-1 text-xs font-medium bg-teal-100 text-teal-800 rounded-full"
 												>
-													<path
-														d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"
-													/>
-												</svg>
-												{user.role}
-											</span>
+													<svg
+														class="size-2.5"
+														xmlns="http://www.w3.org/2000/svg"
+														width="16"
+														height="16"
+														fill="currentColor"
+														viewBox="0 0 16 16"
+													>
+														<path
+															d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"
+														/>
+													</svg>
+													{user.role}
+												</span>
+											{:else if user.role !== 'user'}
+												<span
+													class="py-1 px-1.5 inline-flex items-center gap-x-1 text-xs font-medium bg-blue-200 text-blue-700 rounded-full"
+												>
+													<svg
+														class="size-2.5"
+														xmlns="http://www.w3.org/2000/svg"
+														width="16"
+														height="16"
+														fill="currentColor"
+														viewBox="0 0 16 16"
+													>
+														<path
+															d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"
+														/>
+													</svg>
+													{user.role}
+												</span>
+											{/if}
 										</div>
 									</td>
 									<td class="size-px whitespace-nowrap">
@@ -381,7 +415,7 @@
 									</td>
 									<td class="size-px whitespace-nowrap">
 										<div class="px-6 py-3">
-											<span class="text-sm text-gray-400">28 Dec, 12:12</span>
+											<span class="text-sm text-gray-400">{timeToDate(user.createdAt)}</span>
 										</div>
 									</td>
 									<td class="size-px whitespace-nowrap">
