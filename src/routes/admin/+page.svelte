@@ -375,7 +375,7 @@
 													</svg>
 													{user.role}
 												</span>
-											{:else if user.role == 'admin'}
+											{:else if user.role !== 'user'}
 												<span
 													class="py-1 px-1.5 inline-flex items-center gap-x-1 text-xs font-medium bg-blue-200 text-blue-700 rounded-full"
 												>
