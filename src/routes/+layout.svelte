@@ -70,7 +70,7 @@
 						>Help & Support</a
 					>
 				</p>
-				<p><a class="inline-flex gap-x-2 text-gray-400 hover:text-gray-500" href="/">Status</a></p>
+				<p><a class="inline-flex gap-x-2 text-gray-400 hover:text-gray-500" href="https://app.pulsetic.com/status/xQxvMjco" target='_blank'>Status</a></p>
 			</div>
 		</div>
 
