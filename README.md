@@ -1,52 +1,58 @@
-# Kisara
+# 🔥 Kisara
 
-Kirim pesan rahasia atau Kisara merupakan sebuah pembaruan dari secreto yang sudah ada sebelumnya.  Kirasa memungkinkan pengguna untuk mengirim pesan rahasia dimana pembuat link tidak dapat melihat pengirim
+Welcome to KiSaRa! 
 
-## Fitur
+KiSaRa is a platform that is useful for getting secret messages from your friends. This project was created using Svelte to get an interesting user experience
+
+## Features 🚀
 - [x] Membuat link yang diberikan password (dapat digunakan dierbagai device)
 - [x] Author dapat menghapus pesan
+- [x] Memberikan balasan pada pesan
 - [ ] Author dapat menyembunyikan pesan
 - [ ] Author dapat mengunci pesan, sehingga tidak bisa mengirim pesan lagi
 - [ ] Author dapat menghapus akun dan semua pesan yang ada
 
 
-## Environment Variables
+## Environment Variables 🚧
 
-To run this project, you will need to add the following environment variables to your .env file
+To run this project, you will need to add the following environment variables to your `.env` file
 
-`DATABASE_URL=''`
+`DATABASE_URL='url'`
 
-`JWT_SECRET_KEY=''`
+`JWT_SECRET_KEY='secret'`
 
-`JWT_EXPIRATION_TIME=''`
+`JWT_EXPIRATION_TIME='secret'`
 
 
-## Installation
+## Installation 🛠️
 
-Clone the project
+1. Clone the project
 
-```bash
-  git clone https://github.com/jeremy776/Kisara.git
-```
+    ```bash
+      git clone https://github.com/jeremy776/Kisara.git
+    ```
 
-Go to the project directory
+2. Go to the project directory
 
-```bash
-  cd kisara
-```
+    ```bash
+      cd kisara
+    ```
 
-Install dependencies
+3. Install dependencies
 
-```bash
-  npm install
-```
+    ```bash
+      npm install
+    ```
 
-Start the server
+4. Start the server on development mode
 
-```bash
-  npm run DEV
-```
+    ```bash
+      npm run DEV
+    ```
 
-## Authors
+## Contributing 🤝
+If you want to contribute to this project, please fork this project and create a pull request. We are very open to contributions from all users.
 
-- [@jeremy776](https://github.com/jeremy776)
+## Related Project 👷
+- [Kisara Backend](https://github.com/AnggaaIs/kisara-api)
+- [Kirasan Old Version](https://github.com/jeremy776/kirim-rahasia-pesan) 

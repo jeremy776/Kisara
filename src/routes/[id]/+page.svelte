@@ -146,7 +146,7 @@
 			<div class="text-lg mt-10 text-center">
 				<p class="text-md text-gray-500">Bagiin link kamu ke media sosial yuk</p>
 				<div class="mt-3">
-					<input type="hidden" id="hs-clipboard-tooltip" value={data.data.url} />
+					<input  type="hidden" id="url" value={data.data.url} />
 
 					<button
 						type="button"
