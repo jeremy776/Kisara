@@ -96,6 +96,7 @@
 							autocomplete="off"
 							name="name"
 							type="text"
+							id="name"
 							placeholder="daftarkan nama"
 							class="input input-bordered"
 							required
@@ -108,6 +109,7 @@
 						<input
 							name="password"
 							type="password"
+							id="password"
 							placeholder="password"
 							class="input input-bordered"
 							required

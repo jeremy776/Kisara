@@ -12,7 +12,6 @@
 	 * @type {any[]}
 	 */
 	let message = data.data.messages;
-	// add value 'first_message' to first message
 	if (message.length > 0) {
 		message[message.length - 1].first_message = true;
 	}
