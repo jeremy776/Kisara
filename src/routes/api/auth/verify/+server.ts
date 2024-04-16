@@ -4,11 +4,6 @@ import { json } from '@sveltejs/kit';
 import { prisma } from '$lib/server/prisma.js';
 
 export async function GET({request, cookies}) {
-    // const token = cookies.get('token');
-    // if (!token) {
-    //     return json({ message: 'Not logged in' }, { status: 401 });
-    // }
-
     const token = request.headers.get('Authorization')?.split(' ') || [];
     if(token[1] === 'undefined') return json({ message: 'Not logged in', status: 401 });
 

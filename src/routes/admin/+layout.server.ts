@@ -33,15 +33,6 @@ export async function load({ cookies, url }) {
 }
 
 function groupByDay(data: any) {
-	// return Object.entries(
-	// 	data.reduce((grouped: any, item: any): any => {
-	// 		const dayformat = timeToDate(item.createdAt);
-	// 		const day = dayformat;
-	// 		grouped[day] = (grouped[day] || 0) + 1;
-	// 		return grouped;
-	// 	}, {})
-	// ).map(([day, count]) => ({ day, count }));
-
 	const grouped = [];
 	for (let i = 0; i >= -29; i--) {
 		const currentDate = new Date();

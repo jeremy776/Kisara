@@ -1,22 +1,20 @@
 <script>
+	import { Badge } from '$lib/components/ui/badge';
+	import { Button } from '$lib/components/ui/button';
+	import * as Dialog from '$lib/components/ui/dialog';
+	import { Input } from '$lib/components/ui/input';
+
+	import { toast } from 'svelte-sonner';
 	import { fade, fly } from 'svelte/transition';
 	/** @type {import('./$types').PageData} */
 	export let data;
-
-	let cookies = {};
-	let author = data.data.author;
-	const early_access = ['admin'].includes(author.role);
-	let isOwner = data.data.isOwner;
-
 	/**
 	 * @type {any[]}
 	 */
-	let message = data.data.messages;
-	// add value 'first_message' to first message
+	let message = data.data.comments;
 	if (message.length > 0) {
 		message[message.length - 1].first_message = true;
 	}
-
 	function handleCopy() {
 		/**
 		 * @type {any}
@@ -25,13 +23,7 @@
 		input?.select();
 		input?.setSelectionRange(0, 99999);
 		navigator.clipboard.writeText(input?.value);
-		let sc = document.getElementsByClassName('js-clipboard-default');
-		let scs = document.getElementsByClassName('js-clipboard-success');
-
-		if (!sc[0].classList.contains('hidden')) {
-			sc[0].classList.toggle('hidden');
-			scs[0].classList.toggle('hidden');
-		}
+		toast.success('Link berhasil di copy');
 	}
 
 	/** @param {{ currentTarget: EventTarget & HTMLFormElement}} event */
@@ -39,23 +31,21 @@
 		const form = event.currentTarget;
 		const formData = new FormData(form);
 		const datas = Object.fromEntries(formData.entries());
-
-		fetch('/api/message', {
+		fetch(`/api/message/${data.link_id}`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
 			},
 			body: JSON.stringify({
-				pesan: datas.pesan,
-				id: data.data.id
+				message_content: datas.pesan
 			})
 		}).then((res) => {
 			if (res.ok) {
 				res.json().then((data) => {
-					if (data.status === 200) {
+					if (data.statusCode === 201) {
 						form.reset();
-						console.log(data.data);
-						data.data['ReplyComment'] = [];
+						// @ts-ignore
+						message['ReplyComment'] = [];
 						message = [data.data, ...message];
 					}
 				});
@@ -133,12 +123,12 @@
 </script>
 
 <svelte:head>
-	<title>{author.username} - Dapatkan pesan rahasia dari teman mu</title>
+	<title>{data.data.author.username} - Dapatkan pesan rahasia dari teman mu</title>
 </svelte:head>
 
 <div class="flex items-center flex-col gap-3 min-h-full">
-	<div class="bg-base-100 w-full max-w-7xl p-6 shadow-sm rounded-b-2xl">
-		{#if isOwner}
+	<div class="bg-base-100 w-full max-w-7xl p-6 shadow-md rounded-b-2xl">
+		{#if data.is_owner}
 			<div class="w-fulll bg-base-200 px-4 py-2 text-center">
 				<p class="text-xl aos-init">💬 Daftar Pesan kamu</p>
 			</div>
@@ -146,101 +136,55 @@
 			<div class="text-lg mt-10 text-center">
 				<p class="text-md text-gray-500">Bagiin link kamu ke media sosial yuk</p>
 				<div class="mt-3">
-					<input  type="hidden" id="url" value={data.data.url} />
-
-					<button
-						type="button"
-						class="w-full max-w-sm js-clipboard-example [--trigger:focus] hs-tooltip relative py-3 px-4 inline-flex justify-between items-center border-gray-700 gap-x-2 text-sm font-mono rounded-lg border shadow-sm hover:bg-base-300 disabled:opacity-50 disabled:pointer-events-none"
-						data-clipboard-target="#hs-clipboard-tooltip"
-						data-clipboard-action="copy"
-						data-clipboard-success-text="Copied"
-						on:click={handleCopy}
-					>
-						{data.data.url}
-						<span class="border-s ps-3.5">
-							<svg
-								class="js-clipboard-default size-4 group-hover:rotate-6 transition"
-								xmlns="http://www.w3.org/2000/svg"
-								width="24"
-								height="24"
-								viewBox="0 0 24 24"
-								fill="none"
-								stroke="currentColor"
-								stroke-width="2"
-								stroke-linecap="round"
-								stroke-linejoin="round"
-							>
-								<rect width="8" height="4" x="8" y="2" rx="1" ry="1"></rect>
-								<path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"
-								></path>
-							</svg>
-
-							<svg
-								class="js-clipboard-success hidden size-4 text-green-400 rotate-6"
-								xmlns="http://www.w3.org/2000/svg"
-								width="24"
-								height="24"
-								viewBox="0 0 24 24"
-								fill="none"
-								stroke="currentColor"
-								stroke-width="2"
-								stroke-linecap="round"
-								stroke-linejoin="round"
-							>
-								<polyline points="20 6 9 17 4 12"></polyline>
-							</svg>
-						</span>
-
-						<span
-							class="hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible opacity-0 transition-opacity hidden invisible z-10 py-1 px-2 bg-gray-900 text-xs font-medium text-white rounded-lg shadow-sm"
-							role="tooltip"
-						>
-							Copied
-						</span>
-					</button>
+					<div class="w-full flex items-center justify-center">
+						<div class="flex w-full max-w-xl items-center space-x-2">
+							<Input id="url" type="text" disabled value={data.url} placeholder={data.url} />
+							<Button on:click={handleCopy}>Copy Link</Button>
+						</div>
+					</div>
 				</div>
 			</div>
 		{:else}
-			<div class="w-full bg-base-200 rounded-3xl px-4 py-6">
+			<div class="w-full rounded-3xl px-4 py-6">
 				<div class="space-y-">
 					<h2 class="font-semibold">
-						{#if author.role == 'super'}
+						{#if data.data.author.role == 'super'}
 							Hello heloo, ini halaman punya admin
 						{:else}
-							Mau ngirim pesan apa nih ke {author.username}?
+							Mau ngirim pesan apa nih ke {data.data.author.username}?
 						{/if}
 					</h2>
 					<p class="text-sm text-gray-400">
-						{#if author.role == 'super'}
+						{#if data.data.author.role == 'super'}
 							disini kamu bisa curhat tentang apa aja tanpa takut identitas kamu di ketahui kok
 						{:else}
-							Tenang aja, {author.username} ga bakalan tau kok yang ngirim pesan nya siapa
+							Tenang aja, {data.data.author.username} ga bakalan tau kok yang ngirim pesan nya siapa
 						{/if}
 					</p>
 				</div>
 
 				<form on:submit|preventDefault={handleKirim} class="my-4">
-					<input
+					<Input
 						type="text"
 						name="pesan"
 						autocomplete="off"
 						class="text-sm input w-full"
 						placeholder="tulisnya tetep pake etika yaa..."
 					/>
-					<button class="btn btn-success mt-5 btn-sm">
-						{#if author.role == 'super'}
+					<Button type="submit" class="btn btn-success mt-5 btn-sm">
+						{#if data.data.author.role == 'super'}
 							Kirim curhatan
 						{:else}
-							Kirim ke {author.username}
+							Kirim ke {data.data.author.username}
 						{/if}
-					</button>
+					</Button>
 				</form>
 			</div>
 		{/if}
 	</div>
 
-	{#if early_access}
-		<!-- Announcement Banner -->
+	<!-- {#if early_access}
+		<!-- Announcement Banner --
 		<div
 			class="z-[100000000000000] sticky top-3 max-w-7xl w-full px-4 mt-5 sm:px-6 lg:px-8 mx-auto"
 		>
@@ -250,7 +194,7 @@
 				<p class="me-2 inline-block text-white">Kamu berada di halaman dengan versi beta</p>
 			</div>
 		</div>
-		<!-- End Announcement Banner -->
+		<!-- End Announcement Banner -
 	{:else}
 		<div
 			class="z-[100000000000000] sticky top-3 max-w-7xl w-full px-4 mt-5 sm:px-6 lg:px-8 mx-auto"
@@ -261,22 +205,22 @@
 				<p class="me-2 inline-block text-white">Kamu berada di halaman tempat memberikan curhatan</p>
 			</div>
 		</div>
-	{/if}
+	{/if} -->
 
 	<div class="w-full max-w-7xl p-6">
-		<h2 class="text-xl text-left">⏱️ Timeline {author.username}</h2>
+		<h2 class="text-xl text-left">⏱️ Timeline {data.data.author.username}</h2>
 		<div class="mt-4">
 			{#if message.length === 0}
 				<p class="text-center text-gray-400 mt-5">Belum ada pesan nih</p>
 			{/if}
 
 			{#each message as msg (msg.id)}
-				<div transition:fly={{ y: -200 }} class={'bg-base-100 p-4 mt-4 rounded-lg'}>
+				<div transition:fly={{ y: -200 }} class={'border bg-base-100 p-4 mt-4 rounded-lg'}>
 					<p class="">
-						{msg.content}
+						{msg.message_content}
 					</p>
 
-					{#if early_access}
+					<!-- {#if early_access}
 						<div class="mt-2">
 							<form on:submit|preventDefault={(e) => handleReply(e, msg.id)} class="relative">
 								<input
@@ -302,18 +246,36 @@
 								{/each}
 							</div>
 						{/if}
-					{/if}
+					{/if} -->
 
 					<div class="flex justify-between mt-4">
-						{#if isOwner}
-							<div>
-								<button
-									class="btn btn-xs rounded-sm btn-error text-white"
+						{#if data.is_owner}
+						<Dialog.Root>
+							<Dialog.Trigger>Hapus</Dialog.Trigger>
+							<Dialog.Content>
+								<Dialog.Header>
+									<Dialog.Title>Peringatan cuy!</Dialog.Title>
+									<Dialog.Description>
+										Yakin mau hapus komentar??
+									</Dialog.Description>
+								</Dialog.Header>
+								<p>btw, pesan yg udah di hapus ga bisa dibalikin lagi ya...</p>
+								<Dialog.Footer class='flex flex-row gap-2'>
+									<Button variant='destructive' on:click={() => {
+										
+									}}>Ga jadi</Button>
+									<Button variant='secondary'>Yakin dong</Button>
+								</Dialog.Footer>
+							</Dialog.Content>
+						</Dialog.Root>
+							<!-- <div>
+								<Button
+									variant="destructive"
 									on:click={() => {
 										const modal = document.getElementById(`my_modal_${msg.id}`);
 										// @ts-ignore
 										modal?.showModal();
-									}}>Hapus</button
+									}}>Hapus</Button
 								>
 								<dialog id={`my_modal_${msg.id}`} class="modal">
 									<div class="modal-box">
@@ -324,7 +286,7 @@
 										</p>
 										<div class="modal-action">
 											<form method="dialog">
-												<!--if there is a button in form, it will close the modal -->
+												<!--if there is a button in form, it will close the modal --
 												<button class="btn">ga jadi</button>
 												<button
 													class="btn btn-error text-white"
@@ -336,13 +298,14 @@
 										</div>
 									</div>
 								</dialog>
-							</div>
+							</div> -->
 						{/if}
-						<span
+						<!-- <span
 							class="inline-flex items-center gap-x-1.5 py-0.5 px-3 rounded-full text-xs font-medium bg-gray-800 text-gray-400"
 						>
 							{timeToDate(msg.createdAt)}
-						</span>
+						</span> -->
+						<Badge variant="secondary">{timeToDate(msg.createdAt)}</Badge>
 					</div>
 				</div>
 			{/each}
