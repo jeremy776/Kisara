@@ -3,72 +3,47 @@ import { json } from '@sveltejs/kit';
 import { JWT_EXPIRATION_TIME } from '$env/static/private';
 import bcrypt from 'bcryptjs';
 import { prisma } from '$lib/server/prisma.js';
+import { api_endpoint } from '$lib';
 
 export async function POST({ request, cookies }) {
-	try {
-		const body = await request.json();
-		if (!body.name || !body.password) {
-			return json({ message: 'Invalid username or password' }, { status: 401 });
-		}
-		const user = await prisma.user.findUnique({
-			where: {
-				username: body.name.toLowerCase()
-			}
-		});
-		if (!user) {
-			const hashedPassword = (await bcrypt.hash(body.password, 10)) as string;
-			const userd = await prisma.user.create({
-				data: {
-					username: body.name.toLowerCase(),
-					link_id: link_id(),
-					password: hashedPassword
-				}
-			});
-			const token = await jwt_sign({ sub: userd.id }, { exp: `${JWT_EXPIRATION_TIME}m` });
-			const tokenMaxAge = parseInt(JWT_EXPIRATION_TIME) * 60;
-			const cookieOps = {
-				httpOnly: true,
-				path: '/',
-				secure: process.env.NODE_ENV !== 'production',
-				maxAge: tokenMaxAge
-			};
-			cookies.set('token', token, cookieOps);
-			cookies.set('loggedin', 'true', {
-				...cookieOps,
-				httpOnly: false
-			});
-			return json({ message: 'Logged in not found', token, id: userd.link_id, status: 200 });
-		}
-		const passwordMatch = await bcrypt.compare(body.password, user.password);
-		if (!passwordMatch) {
-			return json({ message: 'Invalid username or password' }, { status: 401 });
-		}
-		const token = await jwt_sign(
-			{ sub: user.id },
-			{
-				exp: `${JWT_EXPIRATION_TIME}m`,
-				// exp: `9000000000000000000000000000000000000000000000000000m`
-			}
-		);
-		const tokenMaxAge = parseInt(JWT_EXPIRATION_TIME) * 60;
-		// const tokenMaxAge = parseInt(9000000000000000000000000000000000000000000000000000) * 60
-		const cookieOps = {
-			httpOnly: true,
-			path: '/',
-			secure: process.env.NODE_ENV !== 'production',
-			maxAge: tokenMaxAge
-		};
-		cookies.set('token', token, cookieOps);
-		cookies.set('loggedin', 'true', {
-			...cookieOps,
-			httpOnly: false
-		});
-		return json({ message: 'Logged in', status: 200, token, id: user.link_id });
-	} catch (error: any) {
-		return json({ error: error.message }, { status: 500 });
+	const body = await request.json();
+	if (!body.username || !body.password) {
+		return json({ message: 'Invalid username or password' }, { status: 401 });
 	}
-}
 
-function link_id() {
-	return Math.random().toString(36).slice(2, 7);
+	let login_api = await fetch(`${api_endpoint}/auth/login`, {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		body: JSON.stringify(body)
+	});
+	let login_data = await login_api.json();
+
+	if (![200, 201].includes(login_data.statusCode)) {
+		return json({ message: 'Invalid username or password' }, { status: 401 });
+	}
+
+  const token_payload = {
+    id: login_data.data.id,
+    link_id: login_data.data.link_id
+  }
+
+	const token = await jwt_sign({ sub: JSON.stringify(token_payload) }, { exp: `${JWT_EXPIRATION_TIME}m` });
+	const tokenMaxAge = parseInt(JWT_EXPIRATION_TIME) * 60;
+	const cookieOps = {
+		httpOnly: true,
+		path: '/',
+		secure: process.env.NODE_ENV !== 'production',
+		maxAge: tokenMaxAge
+	};
+	cookies.set('token', token, cookieOps);
+
+	return json({
+		message: 'Logged in',
+		status: 200,
+		link_id: login_data.data.link_id
+	}, {
+    status: 200
+  });
 }

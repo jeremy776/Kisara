@@ -7,12 +7,7 @@ export async function load({parent, params, url}) {
 	}
 	return {
 		status: 200,
-		data: {
-			id: params.id,
-			isOwner: p.is_owner,
-			url: url.href,
-			author: p.author,
-			messages: p.messages
-		},
+		url,
+		link_id: params.id,
 	};
 }

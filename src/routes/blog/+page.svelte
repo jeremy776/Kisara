@@ -3,7 +3,7 @@
 	<!-- Title -->
 	<div class="max-w-2xl mx-auto text-center mb-10 lg:mb-14">
 		<h2 class="text-2xl font-bold md:text-4xl md:leading-tight">Kisara Blog</h2>
-		<p class="mt-1 text-gray-400">Stay up to date with the latest news and updates</p>
+		<p class="mt-1 text-gray-400">Dapatkan Berita terbaru seputar kisara</p>
 	</div>
 	<!-- End Title -->
 

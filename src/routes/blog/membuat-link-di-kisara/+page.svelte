@@ -1,3 +1,8 @@
+<script>
+
+	import * as Breadcrumb from "$lib/components/ui/breadcrumb/index";
+
+</script>
 <svelte:head>
     <title>Membuat Link di KiSaRa - Kisara</title>
     <link rel="canonical" href="https://kisara2.vercel.app/blog/membuat-link-di-kisara">
@@ -39,7 +44,22 @@
 
 <!-- Blog Article -->
 <div class="max-w-3xl px-4 pt-6 lg:pt-10 pb-12 sm:px-6 lg:px-8 mx-auto">
-	<div class="max-w-2xl">
+	<div class="max-w-2xl p-3">
+		<Breadcrumb.Root class='mb-10'>
+			<Breadcrumb.List>
+				<Breadcrumb.Item>
+					<Breadcrumb.Link href="/">Home</Breadcrumb.Link>
+				</Breadcrumb.Item>
+				<Breadcrumb.Separator />
+				<Breadcrumb.Item>
+					<Breadcrumb.Link href="/blog">blog</Breadcrumb.Link>
+				</Breadcrumb.Item>
+				<Breadcrumb.Separator />
+				<Breadcrumb.Item>
+					<Breadcrumb.Page>Membuat Link di Kisara</Breadcrumb.Page>
+				</Breadcrumb.Item>
+			</Breadcrumb.List>
+		</Breadcrumb.Root>
 		<!-- Avatar Media -->
 		<div class="flex justify-between items-center mb-6">
 			<div class="flex w-full sm:items-center gap-x-5 sm:gap-x-3">
@@ -57,7 +77,7 @@
 							<!-- Tooltip -->
 							<div class="hs-tooltip inline-block [--trigger:hover] [--placement:bottom]">
 								<div class="hs-tooltip-toggle sm:mb-1 block text-start cursor-pointer">
-									<span class="font-semibold text-white"> Admin Kisara </span>
+									<span class="font-semibold "> Admin Kisara </span>
 								</div>
 							</div>
 							<!-- End Tooltip -->
@@ -88,14 +108,14 @@
 					Melakukan pendaftaran atau pembuatan akun baru pada KiSaRa
 				</h2>
 
-				<p class="text-md text-gray-200">
+				<p class="text-md ">
 					Pada artikel ini, kita akan membahas bagaimana cara melakukan pendaftaran atau pembuatan
 					akun baru pada KiSaRa. Sebelumnya mimin mau kasih tau nih, jadi KiSara itu sebuah platform
 					yang dibuat supaya kamu mempunyai confession box pribadi.
 				</p>
 			</div>
 
-			<p class="text-md text-gray-200">
+			<p class="text-md ">
 				Jadi kamu bisa dapetin tuh pesan dari temen kamu tanpa tau siapa yang ngirim. Nah, sekarang
 				kita akan membahas bagaimana cara melakukan pendaftaran atau pembuatan akun baru pada
 				KiSaRa.
@@ -108,10 +128,10 @@
 					src="https://cdn.discordapp.com/attachments/901133191962837053/1225788198542901248/image.png?ex=66226738&is=660ff238&hm=bbebf1fd6a180fca8da913daa5e0674bfb22daa9e64ed1c0f038504549fe275b&"
 					alt="Image Description"
 				/>
-				<figcaption class="mt-3 text-sm text-center text-gray-500">Homepage KiSaRa</figcaption>
+				<figcaption class="mt-3 text-sm text-center ">Homepage KiSaRa</figcaption>
 			</figure>
 
-			<p class="text-md text-gray-200">
+			<p class="text-md">
 				Yang pertama perlu kamu lakukan itu cuma buka aja website KiSaRa di <a
 					href="https://kisara2.vercel.app"
 					class="text-blue-400 decoration-2 hover:underline font-medium"
@@ -119,7 +139,7 @@
 				>. Setelah itu kamu akan diarahkan ke halaman utama KiSaRa seperti gambar di atas.
 			</p>
 
-			<p class="text-md text-gray-200">
+			<p class="text-md">
 				Setelah itu kamu cuma perlu masukin nama kamu dan juga password, lalu klik tombol "Daftar".
 				Setelah itu kamu akan diarahkan ke link yang sudah dibuat.
 			</p>
@@ -135,14 +155,14 @@
 			</figure>
 
 			<div class="space-y-3">
-				<p class="text-md text-gray-300">
+				<p class="text-md">
 					Setelah itu kamu akan diarahkan ke dashboard profile kamu. Disini kamu bisa melihat semua
 					pesan yang kamu terima. Oh ya jika ada pesan yang kamu anggap tidak pantas, kamu bisa
 					langsung hapus pesan tersebut.
 				</p>
 			</div>
 
-			<p class="text-md text-gray-200">
+			<p class="text-md">
 				Nah, itu dia cara melakukan pendaftaran atau pembuatan akun baru pada KiSaRa. Jika kamu
 				masih bingung, kamu bisa langsung chat mimin di <a
 					href="https://discord.gg/3Zkx2VJ"

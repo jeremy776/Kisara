@@ -5,14 +5,6 @@ import { redirect } from '@sveltejs/kit';
 export async function handle({ event, resolve }) {
 	try {
 		const token = event.cookies.get('token');
-		// if (token && event.url.pathname === '/') {
-
-		// 	let verif = await verifOwners.json();
-		// 	if (verif.status === 200 ) {
-		// 		return
-		// 	}
-		// }
-
 		if (event.url.pathname === '/admin') {
 			let verifOwners = await fetch(`${event.url.origin}/api/auth/verify`, {
 				headers: {
@@ -28,9 +20,7 @@ export async function handle({ event, resolve }) {
 			}
 		}
 
-		let response = await resolve(event, {
-			// transformPageChunk: ({html}) => html.replace(/<title>.*?<\/title>/, '<title>Loading bentar</title>'),
-		});
+		let response = await resolve(event, {});
 		return response;
 	} catch (error) {
 		return redirect(307, '/');

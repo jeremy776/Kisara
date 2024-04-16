@@ -1,11 +1,24 @@
 <script>
-	// import Countup from './Countup.svelte';
+	import { onMount } from 'svelte';
+	import { socket, verifConnection } from '$lib/socketConnection';
+	import { RocketOutline } from 'flowbite-svelte-icons';
+	import * as Alert from '$lib/components/ui/alert/index';
+	import * as Card from '$lib/components/ui/card/index';
+	import { Button } from '$lib/components/ui/button';
+	import { Input } from '$lib/components/ui/input';
+	import { Label } from '$lib/components/ui/label';
+	onMount(async () => {
+		let a = verifConnection();
+		// console.log(a)
+	});
+
 	/** @param {{ currentTarget: EventTarget & HTMLFormElement}} event */
 	async function handleSubmit(event) {
 		const form = event.currentTarget;
 		const formData = new FormData(form);
 		const data = Object.fromEntries(formData.entries());
-		await fetch('/api/auth/login', {
+		// console.log(data)
+		await fetch(`/api/auth/login`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
@@ -14,8 +27,8 @@
 		}).then((res) => {
 			if (res.ok) {
 				res.json().then((data) => {
-					if (data.status === 200) {
-						window.location.href = '/' + data.id;
+					if (data.status == 200) {
+						location.reload();
 					}
 				});
 			} else {
@@ -34,10 +47,13 @@
 	<title>Kisara - Dapatkan pesan rahasia dari teman mu</title>
 </svelte:head>
 
-<div class="hero min-h-[90vh] bg-base-200">
-	<div
-		class="relative hero-content flex-col flex lg:flex-row-reverse lg:flex lg:justify-between sm:max-w-md lg:max-w-7xl lg:gap-10"
-	>
+<div class="flex justify-center flex-col min-h-[90vh] p-8">
+	<Alert.Root class="mb-20">
+		<RocketOutline class="h-6 w-6" />
+		<Alert.Title>Heads up!</Alert.Title>
+		<Alert.Description>Nantikan design terbaru dari Kisara v1!</Alert.Description>
+	</Alert.Root>
+	<div class="w-full items-center gap-8 flex flex-col md:flex-row-reverse justify-between relative">
 		<div class="text-center lg:text-right max-w-xl w-full">
 			<h1 class="text-5xl font-bold">Kisara</h1>
 			<p class="py-6">
@@ -74,53 +90,54 @@
 				/>
 			</svg>
 		</div>
-		<div class="card shrink-0 w-full shadow max-w-sm bg-base-100">
-			{#if data.user}
-				<div class="stats stats-vertical">
-					<div class="stat">
-						<div class="stat-title">Total Komentar</div>
-						<div class="stat-value">
-							<!-- <Countup value={data.user.message} /> -->
-							{data.user.message} Komentar
-						</div>
-					</div>
-					<a href={`/${data.user.link_id}`} class="mt-4 btn btn-primary">Lihat link</a>
-				</div>
+
+		<Card.Root>
+			{#if data.is_loggedin}
+				<Card.Header>
+					<Card.Title tag="h1" class="text-2xl">Link Kamu</Card.Title>
+				</Card.Header>
+				<Card.Content>
+					<p>Saat ini kamu mempunyai 50 Komentar</p>
+				</Card.Content>
+				<Card.Footer>
+					<Button class="w-full" on:click={() => {
+						window.location.href = '/'+data.data?.link_id
+					}}>Lihat Link</Button>
+				</Card.Footer>
 			{:else}
 				<form method="POST" on:submit|preventDefault={handleSubmit} class="card-body">
-					<div class="form-control">
-						<label for="" class="label">
-							<span class="label-text">Nama</span>
-						</label>
-						<input
-							autocomplete="off"
-							name="name"
+					<Card.Header>
+						<Card.Title tag="h1" class="text-2xl">Login</Card.Title>
+						<Card.Description>Masuk ke akun kamu buat dapetin link sendiri :0</Card.Description>
+					</Card.Header>
+					<Card.Content class='flex flex-col gap-6'>
+						<div class="grid w-full max-w-sm items-center gap-1.5">
+							<Label for="username">Nama</Label>
+							<Input autocomplete="off"
+							name="username"
 							type="text"
-							id="name"
-							placeholder="daftarkan nama"
-							class="input input-bordered"
-							required
-						/>
-					</div>
-					<div class="form-control">
-						<label for="" class="label">
-							<span class="label-text">Password</span>
-						</label>
-						<input
+							id="username"
+							placeholder="Daftarkan nama"
+							required />
+						</div>
+						<div class="grid w-full max-w-sm items-center gap-1.5">
+							<Label for="password">Password</Label>
+							<Input
 							name="password"
 							type="password"
 							id="password"
-							placeholder="password"
+							placeholder="Password"
 							class="input input-bordered"
 							required
-						/>
-					</div>
-					<div class="form-control mt-6">
-						<button type="submit" class="btn btn-primary">Login</button>
-					</div>
+							/>
+						</div>
+					</Card.Content>
+					<Card.Footer>
+						<Button type="submit" class="w-full">Login</Button>
+					</Card.Footer>
 				</form>
 			{/if}
-		</div>
+		</Card.Root>
 		<div class="absolute -bottom-20 md:bottom-0 start-0 md:translate-y-10 md:-translate-x-32">
 			<svg
 				class="w-40 h-auto text-cyan-500"
@@ -140,126 +157,53 @@
 		</div>
 	</div>
 </div>
-<div class="flex items-center w-full justify-center mb-20">
-	<div class="w-full max-w-sm p-4 md:max-w-4xl">
-		<div class="flex flex-col md:flex-row w-full stats shadow">
-			<div class="stat">
-				<div class="stat-figure text-secondary">
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						fill="none"
-						viewBox="0 0 24 24"
-						class="inline-block w-8 h-8 stroke-current"
-						><path
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							stroke-width="2"
-							d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-						></path></svg
-					>
-				</div>
-				<div class="stat-title">Pengguna baru</div>
-				<div class="stat-value">{data.total_user || '0'}</div>
-			</div>
 
-			<div class="stat">
-				<div class="stat-figure text-secondary">
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						fill="none"
-						viewBox="0 0 24 24"
-						class="inline-block w-8 h-8 stroke-current"
-						><path
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							stroke-width="2"
-							d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"
-						></path></svg
-					>
-				</div>
-				<div class="stat-title">Pesan terkirim</div>
-				<div class="stat-value">{data.total_comment || '0'}</div>
-			</div>
-
-			<div class="stat">
-				<div class="stat-figure text-secondary">
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						fill="none"
-						viewBox="0 0 24 24"
-						class="inline-block w-8 h-8 stroke-current"
-						><path
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							stroke-width="2"
-							d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"
-						></path></svg
-					>
-				</div>
-				<div class="stat-title">Total kunjungan</div>
-				<div class="stat-value">0</div>
-			</div>
-		</div>
-	</div>
-</div>
-
-<!-- Team -->
 <div class="max-w-5xl px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
-	<!-- Title -->
 	<div class="max-w-2xl mx-auto text-center mb-10 lg:mb-14">
 		<h2 class="text-3xl font-bold md:text-4xl md:leading-tight">Our team</h2>
-		<p class="mt-1 text-gray-500">Lazypeople organization</p>
+		<p class="mt-1 text-gray-500">LazyPeople organization</p>
 	</div>
-	<!-- End Title -->
-
-	<!-- Grid -->
 	<div class="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3 gap-10 md:gap-12">
 		<div class="text-center">
 			<span
-				class="inline-flex items-center justify-center w-[70px] h-[70px] rounded-full bg-blue-600 font-semibold text-white leading-none dark:bg-blue-500"
+				class="inline-flex items-center justify-center w-[70px] h-[70px] rounded-full bg-blue-600 font-semibold  leading-none dark:bg-blue-500"
 			>
 				CJ
 			</span>
 			<div class="mt-2 sm:mt-4">
-				<h3 class="font-medium text-white">Christian Jeremy</h3>
+				<h3 class="font-medium ">Christian Jeremy</h3>
 				<p class="text-sm text-gray-500">Frontend Developer</p>
 			</div>
 		</div>
-		<!-- End Col -->
 
 		<div class="text-center">
 			<span
-				class="inline-flex items-center justify-center w-[70px] h-[70px] rounded-full bg-blue-600 font-semibold text-white leading-none dark:bg-blue-500"
+				class="inline-flex items-center justify-center w-[70px] h-[70px] rounded-full bg-blue-600 font-semibold  leading-none dark:bg-blue-500"
 			>
 				WP
 			</span>
 			<div class="mt-2 sm:mt-4">
-				<h3 class="font-medium text-white">Wahyu Pamungkas</h3>
+				<h3 class="font-medium ">Wahyu Pamungkas</h3>
 				<p class="text-sm text-gray-500">UI/UX Designer</p>
 			</div>
 		</div>
-		<!-- End Col -->
 
 		<div class="text-center">
 			<span
-				class="inline-flex items-center justify-center w-[70px] h-[70px] rounded-full bg-blue-600 font-semibold text-white leading-none dark:bg-blue-500"
+				class="inline-flex items-center justify-center w-[70px] h-[70px] rounded-full bg-blue-600 font-semibold  leading-none dark:bg-blue-500"
 			>
 				AI
 			</span>
 			<div class="mt-2 sm:mt-4">
-				<h3 class="font-medium text-white">Angga Islami</h3>
+				<h3 class="font-medium ">Angga Islami</h3>
 				<p class="text-sm text-gray-500">Backend Developer</p>
 			</div>
 		</div>
-		<!-- End Col -->
 	</div>
-	<!-- End Grid -->
-
-	<!-- Card -->
 	<div class="mt-12 flex justify-center">
 		<div class="border border-gray-600 p-1.5 ps-5 rounded-full">
 			<div class="flex items-center gap-x-3">
-				<span class="text-sm text-gray-400">Mau punya website?</span>
+				<span class="text-sm">Mau punya website?</span>
 				<a
 					class="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-full border border-gray-200 bg-gray-300 text-blue-600 shadow-xl hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none"
 					href="/"
@@ -281,6 +225,4 @@
 			</div>
 		</div>
 	</div>
-	<!-- End Card -->
 </div>
-<!-- End Team -->

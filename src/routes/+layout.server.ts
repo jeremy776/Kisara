@@ -1,20 +1,30 @@
+import { verifyJWT } from "$lib/server/token";
+
 /** @type {import('./$types').PageServerLoad} */
 export async function load({ cookies, url }) {
-    const token = cookies.get('token');
-    let obj_return = {
-        status: 200,
-        user: null
-    };
-    if (token) {
-		let verifOwners = await fetch(`${url.origin}/api/auth/verify`, {
-			headers: {
-				// @ts-ignore
-				Authorization: `Bearer ${token}`
-			}
-		});
-		let verif = await verifOwners.json();
-		if (verif.status === 200) obj_return.user = verif.user;
+	//* get the token from the cookies
+	const token = cookies.get('token');
+	let obj_return = {
+		status: 200,
+		is_loggedin: token ? true : false,
+		data: null
+	} as ServerLoadObjectReturnProps;
+	//* check if the token is available
+	if (token) {
+		const payload = await verifyJWT(token) as { sub: string };
+		if(payload) {
+			obj_return.data = JSON.parse(payload.sub);
+		}
 	}
 
-    return obj_return;
+	return obj_return;
+}
+
+type ServerLoadObjectReturnProps = {
+	status: number;
+	is_loggedin: boolean;
+	data: {
+		id: string;
+		link_id: string;
+	} | null;
 }
