@@ -3,6 +3,8 @@
 	import { Button } from '$lib/components/ui/button';
 	import * as Dialog from '$lib/components/ui/dialog';
 	import { Input } from '$lib/components/ui/input';
+	import { DotsHorizontalOutline } from 'flowbite-svelte-icons';
+	import * as DropdownMenu from '$lib/components/ui/dropdown-menu';
 
 	import { toast } from 'svelte-sonner';
 	import { fade, fly } from 'svelte/transition';
@@ -216,9 +218,23 @@
 
 			{#each message as msg (msg.id)}
 				<div transition:fly={{ y: -200 }} class={'border bg-base-100 p-4 mt-4 rounded-lg'}>
-					<p class="">
-						{msg.message_content}
-					</p>
+					<div class="flex justify-between items-center">
+						<p class="">
+							{msg.message_content}
+						</p>
+						<div>
+							<DropdownMenu.Root>
+								<DropdownMenu.Trigger asChild let:builder>
+									<Button builders={[builder]}>
+										<DotsHorizontalOutline class="w-5 h-5" />
+									</Button>
+								</DropdownMenu.Trigger>
+								<DropdownMenu.Content>
+									<DropdownMenu.Label>Comment Options</DropdownMenu.Label>
+								</DropdownMenu.Content>
+							</DropdownMenu.Root>
+						</div>
+					</div>
 
 					<!-- {#if early_access}
 						<div class="mt-2">
@@ -250,24 +266,20 @@
 
 					<div class="flex justify-between mt-4">
 						{#if data.is_owner}
-						<Dialog.Root>
-							<Dialog.Trigger>Hapus</Dialog.Trigger>
-							<Dialog.Content>
-								<Dialog.Header>
-									<Dialog.Title>Peringatan cuy!</Dialog.Title>
-									<Dialog.Description>
-										Yakin mau hapus komentar??
-									</Dialog.Description>
-								</Dialog.Header>
-								<p>btw, pesan yg udah di hapus ga bisa dibalikin lagi ya...</p>
-								<Dialog.Footer class='flex flex-row gap-2'>
-									<Button variant='destructive' on:click={() => {
-										
-									}}>Ga jadi</Button>
-									<Button variant='secondary'>Yakin dong</Button>
-								</Dialog.Footer>
-							</Dialog.Content>
-						</Dialog.Root>
+							<Dialog.Root>
+								<Dialog.Trigger>Hapus</Dialog.Trigger>
+								<Dialog.Content>
+									<Dialog.Header>
+										<Dialog.Title>Peringatan cuy!</Dialog.Title>
+										<Dialog.Description>Yakin mau hapus komentar??</Dialog.Description>
+									</Dialog.Header>
+									<p>btw, pesan yg udah di hapus ga bisa dibalikin lagi ya...</p>
+									<Dialog.Footer class="flex flex-row gap-2">
+										<Button variant="destructive" on:click={() => {}}>Ga jadi</Button>
+										<Button variant="secondary">Yakin dong</Button>
+									</Dialog.Footer>
+								</Dialog.Content>
+							</Dialog.Root>
 							<!-- <div>
 								<Button
 									variant="destructive"

@@ -7,10 +7,13 @@
 	import { Button } from '$lib/components/ui/button';
 	import { Input } from '$lib/components/ui/input';
 	import { Label } from '$lib/components/ui/label';
-	import { isDev } from '$lib/index';
+	import { isDev } from '$lib';
+
 	onMount(async () => {
 		let a = verifConnection();
 	});
+
+	console.log(isDev)
 
 	/** @param {{ currentTarget: EventTarget & HTMLFormElement}} event */
 	async function handleSubmit(event) {
