@@ -13,8 +13,6 @@
 		let a = verifConnection();
 	});
 
-	console.log(isDev)
-
 	/** @param {{ currentTarget: EventTarget & HTMLFormElement}} event */
 	async function handleSubmit(event) {
 		const form = event.currentTarget;
