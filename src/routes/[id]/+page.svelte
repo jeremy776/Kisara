@@ -3,7 +3,7 @@
 	import { Button } from '$lib/components/ui/button';
 	import * as Dialog from '$lib/components/ui/dialog';
 	import { Input } from '$lib/components/ui/input';
-	import { DotsHorizontalOutline } from 'flowbite-svelte-icons';
+	import { DotsHorizontalOutline, FileCopyOutline, LockOutline, TrashBinOutline } from 'flowbite-svelte-icons';
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu';
 
 	import { toast } from 'svelte-sonner';
@@ -225,12 +225,31 @@
 						<div>
 							<DropdownMenu.Root>
 								<DropdownMenu.Trigger asChild let:builder>
-									<Button builders={[builder]}>
+									<Button variant="ghost" size="sm" builders={[builder]}>
 										<DotsHorizontalOutline class="w-5 h-5" />
 									</Button>
 								</DropdownMenu.Trigger>
 								<DropdownMenu.Content>
-									<DropdownMenu.Label>Comment Options</DropdownMenu.Label>
+									<DropdownMenu.Group>
+										<DropdownMenu.Label>Comment Options</DropdownMenu.Label>
+										<!-- <DropdownMenu.Separator /> -->
+										<DropdownMenu.Item class='flex items-center gap-4'>
+											<FileCopyOutline class="w-5 h-5" />
+											Copy Text
+										</DropdownMenu.Item>
+									</DropdownMenu.Group>
+									<DropdownMenu.Group>
+										<DropdownMenu.Label>(Owner only)</DropdownMenu.Label>
+										<!-- <DropdownMenu.Separator /> -->
+										<DropdownMenu.Item class='flex items-center gap-4'>
+											<LockOutline class="w-5 h-5" />
+											Hide Comment
+										</DropdownMenu.Item>
+										<DropdownMenu.Item class='text-red-600 flex items-center gap-4'>
+											<TrashBinOutline class="w-5 h-5" />
+											Delete Comment
+										</DropdownMenu.Item>	
+									</DropdownMenu.Group>
 								</DropdownMenu.Content>
 							</DropdownMenu.Root>
 						</div>
