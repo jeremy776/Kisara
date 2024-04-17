@@ -7,9 +7,9 @@
 	import { Button } from '$lib/components/ui/button';
 	import { Input } from '$lib/components/ui/input';
 	import { Label } from '$lib/components/ui/label';
+	import { isDev } from '$lib/index';
 	onMount(async () => {
 		let a = verifConnection();
-		// console.log(a)
 	});
 
 	/** @param {{ currentTarget: EventTarget & HTMLFormElement}} event */
