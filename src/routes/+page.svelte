@@ -8,6 +8,7 @@
 	import { Input } from '$lib/components/ui/input';
 	import { Label } from '$lib/components/ui/label';
 	import { isDev } from '$lib';
+	// import { HCaptcha } from 'svelte-hcaptcha'
 
 	onMount(async () => {
 		let a = verifConnection();
@@ -46,15 +47,16 @@
 
 <svelte:head>
 	<title>Kisara - Dapatkan pesan rahasia dari teman mu</title>
+	<script src="https://js.hcaptcha.com/1/api.js?hl=fr" async defer></script>
 </svelte:head>
 
-<div class="flex justify-center flex-col min-h-[90vh] p-8">
+<div class="flex justify-center flex-col min-h-[90vh] p-10">
 	<Alert.Root class="mb-20">
 		<RocketOutline class="h-6 w-6" />
 		<Alert.Title>Heads up!</Alert.Title>
 		<Alert.Description>Nantikan design terbaru dari Kisara v1!</Alert.Description>
 	</Alert.Root>
-	<div class="w-full items-center gap-8 flex flex-col md:flex-row-reverse justify-between relative">
+	<div class="w-full items-center gap-8 flex flex-col md:flex-row-reverse md:justify-evenly relative">
 		<div class="text-center lg:text-right max-w-xl w-full">
 			<h1 class="text-5xl font-bold">Kisara</h1>
 			<p class="py-6">
@@ -62,7 +64,7 @@
 				mengirim pesan secara rahasia kepada pengguna.
 			</p>
 		</div>
-		<div class="absolute top-0 end-0 md:-translate-y-12 md:translate-x-20">
+		<div class="absolute top-0 end-0 md:-translate-y-12 translate-x-6">
 			<svg
 				class="w-16 h-auto text-orange-500"
 				width="121"
@@ -132,6 +134,7 @@
 							required
 							/>
 						</div>
+						<div class="h-captcha" data-sitekey="20000000-ffff-ffff-ffff-000000000002" data-theme="dark"></div>
 					</Card.Content>
 					<Card.Footer>
 						<Button type="submit" class="w-full">Login</Button>
@@ -167,7 +170,7 @@
 	<div class="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3 gap-10 md:gap-12">
 		<div class="text-center">
 			<span
-				class="inline-flex items-center justify-center w-[70px] h-[70px] rounded-full bg-blue-600 font-semibold  leading-none dark:bg-blue-500"
+				class="inline-flex items-center justify-center w-[70px] h-[70px] rounded-full text-white bg-blue-600 font-semibold  leading-none dark:bg-blue-500"
 			>
 				CJ
 			</span>
@@ -179,7 +182,7 @@
 
 		<div class="text-center">
 			<span
-				class="inline-flex items-center justify-center w-[70px] h-[70px] rounded-full bg-blue-600 font-semibold  leading-none dark:bg-blue-500"
+				class="inline-flex items-center justify-center w-[70px] h-[70px] rounded-full bg-blue-600 font-semibold text-white leading-none dark:bg-blue-500"
 			>
 				WP
 			</span>
@@ -191,38 +194,13 @@
 
 		<div class="text-center">
 			<span
-				class="inline-flex items-center justify-center w-[70px] h-[70px] rounded-full bg-blue-600 font-semibold  leading-none dark:bg-blue-500"
+				class="inline-flex items-center justify-center w-[70px] h-[70px] rounded-full bg-blue-600 font-semibold text-white leading-none dark:bg-blue-500"
 			>
 				AI
 			</span>
 			<div class="mt-2 sm:mt-4">
 				<h3 class="font-medium ">Angga Islami</h3>
 				<p class="text-sm text-gray-500">Backend Developer</p>
-			</div>
-		</div>
-	</div>
-	<div class="mt-12 flex justify-center">
-		<div class="border border-gray-600 p-1.5 ps-5 rounded-full">
-			<div class="flex items-center gap-x-3">
-				<span class="text-sm">Mau punya website?</span>
-				<a
-					class="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-full border border-gray-200 bg-gray-300 text-blue-600 shadow-xl hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none"
-					href="/"
-				>
-					Rekrut Kami
-					<svg
-						class="flex-shrink-0 size-4"
-						xmlns="http://www.w3.org/2000/svg"
-						width="24"
-						height="24"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="currentColor"
-						stroke-width="2"
-						stroke-linecap="round"
-						stroke-linejoin="round"><path d="m9 18 6-6-6-6" /></svg
-					>
-				</a>
 			</div>
 		</div>
 	</div>

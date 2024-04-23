@@ -48,7 +48,7 @@
 	<div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6 mb-10">
 		<div class="col-span-full hidden lg:col-span-1 lg:block">
 			<a class="flex-none text-xl font-semibold" href="/" aria-label="KisaRa">KisaRa</a>
-			<p class="mt-3 text-xs sm:text-sm text-gray-300">© 2024 Lazypeople org.</p>
+			<p class="mt-3 text-xs sm:text-sm dark:text-gray-300 text-gray-500">© 2024 Lazypeople org.</p>
 		</div>
 
 		<div>
@@ -76,10 +76,10 @@
 				<p>
 					<a class="inline-flex gap-x-2  hover:text-gray-500" href="/blog">Blog</a>
 				</p>
-				<p>
+				<!-- <p>
 					<a class="inline-flex gap-x-2  hover:text-gray-500" href="/">Partner</a>
 					<span class="inline text-blue-600">— New</span>
-				</p>
+				</p> -->
 			</div>
 		</div>
 
@@ -116,7 +116,7 @@
 				<div class="flex justify-between items-center">
 					<div class="mt-10 sm:hidden">
 						<a class="flex-none text-xl font-semibold" href="/" aria-label="KiSaRa">KiSaRa</a>
-						<p class="mt-1 text-xs sm:text-sm ">© 2024 Lazypeople org.</p>
+						<p class="mt-1 text-xs sm:text-sm dark:text-gray-500 text-gray-600">© 2024 Lazypeople org.</p>
 					</div>
 
 					<!-- Social Brands -->
